@@ -28,26 +28,14 @@
 
         <a class="nav-link rounded-pill  text-bg-dark  mx-1" href="register.php">register</a>
         <a class="nav-link rounded-pill  border border-dark text-bg-light mx-1" href="login.php">login</a>
-         
-
-       
-
-
-
+        
       </div>
     </div>
   </div>
 </nav>
-
-
-<h1 class="text-center"> Welcome @ clips!</h1>
-
-
-
-
 </header>
 
-
+<h1 class="text-center"> Welcome @ clips!</h1>
 
 
 
