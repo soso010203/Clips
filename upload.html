@@ -15,12 +15,12 @@
     <form method="POST" action="upload.php" enctype="multipart/form-data"></form>
     <div class="mb-3">  <!-- Bootstrap Upload + fileInput, upload your post with text-->  
         <label for="fileInput" class="form-label">Upload your file: </label>
-         <input class="form-control" type="file" id="fileInput">
+         <input class="form-control" type="file" name="fileInput" id="fileInput">
     </div>
 
     <div class="mb-3">
         <label for="caption" class="form-label">here is the place for your creative description...</label>
-        <textarea class="form-control" id="caption" rows="3"></textarea>
+        <textarea class="form-control" id="caption" name="caption" rows="3"></textarea>
     </div>
 
         <button type="submit">Publish your post</button>
