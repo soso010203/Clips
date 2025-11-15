@@ -15,27 +15,24 @@
 
 
 <header>
+<!-- Navbar -->
+<?php include 'parts/navbar.php';?> 
 
-<!--Navigation-->
-<nav class="navbar navbar-expand">
-  <div class="container-fluid">
-    <a class="navbar-brand" href="#">CLIPS</a>
-    
-    
-      <div class="navbar-nav ">
-        <a class="nav-link active" aria-current="page" href="index.php">home</a>
-        <a class="nav-link" href="search.php">search</a>
-        <a class="nav-link" href="upload.php">upload</a>
-        <a class="nav-link" href="admin.php">admin</a>
-
-        <a class="nav-link rounded-pill  text-bg-dark  mx-1" href="register.php">register</a>
-        <a class="nav-link rounded-pill  border border-dark text-bg-light mx-1" href="login.php">login</a>
-        
-      </div>
-    </div>
-  </div>
-</nav>
 </header>
+
+
+<?php
+$pdo = new PDO('mysql:host=localhost;dbname=Accounts;charset=utf8', 'username', 'password');
+?>
+
+
+
+<?php
+$pdo = new PDO('mysql:host=localhost;dbname=test', 'username', 'password');
+ 
+$statement = $pdo->prepare("INSERT INTO users (email, vorname, nachname) VALUES (?, ?, ?)");
+$statement->execute(array('info@php-einfach.de', 'Klaus', 'Neumann'));   
+?>
 
 <body class="m-3">
  
