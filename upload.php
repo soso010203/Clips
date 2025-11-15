@@ -12,7 +12,7 @@
     <h1>Create and upload your own post</h1>
     <h2>Upload your post and share your creative ideas with the community!</h2>
 
-    <form method="POST" action="uploadAction.php" enctype="multipart/form-data"></form>
+    <form method="POST" action="uploadAction.php" enctype="multipart/form-data">
     <div class="mb-3">  <!-- Bootstrap Upload + fileInput, upload your post with text-->  
         <label for="fileInput" class="form-label">Upload your file: </label>
          <input class="form-control" type="file" name="fileInput" id="fileInput">
