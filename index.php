@@ -6,6 +6,7 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+    <link rel="stylesheet" href="stylesheet.css">
 
     <title>Document</title>
 
@@ -19,9 +20,47 @@
 
 </header>
 
-<h1 class="text-center"> Welcome @ clips!</h1>
+<h1 class="text-center"  style="margin-bottom: 80px;"> Welcome @ clips!</h1>
 
 
+<div class="row row-cols-1 row-cols-md-2 g-4" > <!-- Bootstrap Grid card layout -->
+
+  <div class="col">
+    <div class="card">
+      <img src="Tier01.jpg" class="card-img-top" alt="Tier01">
+      <div class="card-body">
+        <p class="card-text">Today i saw an interesting bird. Look at the photo!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <img src="Landschaft.png" class="card-img-top" alt="Landschaft">
+      <div class="card-body">
+        <p class="card-text">Look at the beautiful landscape!</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <img src="Winter.jpg" class="card-img-top" alt="Winter">
+      <div class="card-body">
+        <p class="card-text">What a beautiful winter day.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col">
+    <div class="card">
+      <img src="..." class="card-img-top" alt="...">
+      <div class="card-body">
+        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+      </div>
+    </div>
+  </div>
+</div>
 
 
     

@@ -1,0 +1,16 @@
+.card {
+    width: 500px;   
+    margin-bottom: 10px; /* Abstand zum nächsten Post */
+
+}
+
+.card-img-top {  
+    height: 300px;           
+    object-fit: cover;           
+}
+
+.card-body {
+    padding: 15px;
+    flex-grow: 1;            
+}
+
