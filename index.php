@@ -24,7 +24,7 @@
 <h1 class="text-center"  style="margin-bottom: 80px;"> Welcome @ clips!</h1>
 
 
-<div class="row row-cols-1 row-cols-md-2 g-4 justify-content-center" > <!-- Bootstrap Grid card layout -->
+<div class="row row-cols-1 row-cols-md-2 g-4 " > <!-- Bootstrap Grid card layout -->
 
   <div class="col">
     <div class="card">
@@ -56,14 +56,7 @@
     </div>
   </div>
 
-  <div class="col">
-    <div class="card">
-      <img src="..." class="card-img-top" alt="...">
-      <div class="card-body">
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-      </div>
-    </div>
-  </div>
+  
 </div>
 
 
