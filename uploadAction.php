@@ -6,7 +6,7 @@ $fileInput = ""; // variable fileInput
 $errors = []; 
 $success = "";
 
-$allowedExtensions = ["jpg", "jpeg", "png", "pdf"]; // !!Ergänze hier weitere Formate die wir brauchen!!!
+$allowedExtensions = ["jpg", "jpeg", "png", "pdf", "txt", "mp4", "mov"]; // !!Ergänze hier weitere Formate die wir brauchen!!!
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") 
     {

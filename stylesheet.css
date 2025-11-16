@@ -14,3 +14,20 @@
     flex-grow: 1;            
 }
 
+.upload-div {
+    max-width: 550px;
+    margin: 60px auto;
+    padding: 25px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);}
+
+.upload-div h1 {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.upload-div h2 {
+    text-align: center;
+    font-size: 1rem;
+    margin-bottom: 20px;
+}
+
