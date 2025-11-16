@@ -31,3 +31,16 @@
     margin-bottom: 20px;
 }
 
+.Uploadsuccessful {
+    max-width: 550px;
+    margin: 60px auto;
+    padding: 25px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.Uploadsuccessful h1 {
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
