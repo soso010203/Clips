@@ -15,8 +15,7 @@ $posts = [
     ]
 ];
 
-
-$id = intval(array_key_first($_GET));
+$id = intval($_GET['id'] ?? 0);
 
 // here you find the post
 $post = $posts[$id] ?? null;

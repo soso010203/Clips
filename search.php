@@ -1,3 +1,35 @@
+<?php
+// Beispiel-Posts --> später durch Datenbank ersetzt
+$posts = [
+    1 => [
+        "image" => "Tier01.jpg",
+        "description" => "Today I saw an interesting bird. Look at the photo!"
+    ],
+    2 => [
+        "image" => "Landschaft.png",
+        "description" => "Look at the beautiful landscape! It's so beautiful that I could spend hours admiring it."
+    ],
+    3 => [
+        "image" => "Winter.jpg",
+        "description" => "What a beautiful winter day."
+    ]
+];
+
+// Suchbegriff abfangen
+$searchTerm = $_GET['q'] ?? "";
+$searchTerm = trim($searchTerm);
+
+// Suchergebnisse filtern (nur description)
+$results = [];
+if ($searchTerm !== "") {
+    foreach ($posts as $id => $post) {
+        if (stripos($post['description'], $searchTerm) !== false) {
+            $results[$id] = $post;
+        }
+    }
+}
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -5,18 +37,46 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Search Page</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body class="p-4">  <!-- Bootstrap Search bar, Search-function for the posts-->
+<body class="p-4">
 
 <?php include 'parts/navbar.php';?> 
-  <div class="container">
-    <form class="d-flex" role="search">
-      <input class="form-control me-2" type="search" placeholder="Suchbegriff eingeben..." aria-label="Search">
-      <button class="btn btn-outline-success" type="submit">Suchen</button>
+
+<div class="container">
+    <h1 class="mb-4">Search for posts</h1>
+    
+    <form class="d-flex mb-4" role="search" method="get">
+        <input class="form-control me-2" type="search" name="q" placeholder="Suchbegriff eingeben..." aria-label="Search" value="<?php echo htmlspecialchars($searchTerm); ?>">
+        <button class="btn btn-outline-success" type="submit">Suchen</button>
     </form>
-  </div>
+
+    <?php if ($searchTerm !== ""): ?>
+        <h5>Results for "<?php echo htmlspecialchars($searchTerm); ?>":</h5>
+        
+        <?php if (!empty($results)): ?>
+            <div class="row row-cols-1 row-cols-md-2 g-4 mt-2">
+                <?php foreach ($results as $id => $post): ?>
+                    <div class="col">
+                        <div class="card position-relative">
+                            <img src="<?php echo $post['image']; ?>" class="card-img-top" alt="Post image">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <?php echo strlen($post['description']) > 50 ? substr($post['description'],0,50)."..." : $post['description']; ?>
+                                </p>
+                                <!-- Link um auf den Post zu kommen-->
+                                <a href="post.php?id=<?php echo $id; ?>" class="stretched-link"></a>
+                            </div>
+                        </div>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+        <?php else: ?>
+            <p class="text-muted mt-3">No posts found.</p>
+        <?php endif; ?>
+    <?php endif; ?>
+</div>
 
 </body>
 </html>
