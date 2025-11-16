@@ -18,7 +18,7 @@ $successfulUpload= $_SESSION['successfulUpload'] ?? "Upload successful!";
 
 <div class="Uploadsuccessful">
     <h1>Upload successful!</h1>
-    <p>You can view your post under your <a href="profile.php">Profile</a> now.</p>
+    <a href="profile.php" style="text-decoration: none;">Profile</a>
 </div>
 
 </body>
