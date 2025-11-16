@@ -9,6 +9,8 @@
  </head>
 
  <body> 
+    <?php include 'parts/navbar.php';?> 
+    
     <h1>Create and upload your own post</h1>
     <h2>Upload your post and share your creative ideas with the community!</h2>
 

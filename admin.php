@@ -9,6 +9,8 @@
 
 <body class="bg-light"> <!-- Bootstrap admin Panel nav bar -->
 
+<?php include 'parts/navbar.php';?> 
+
   <div class="container py-4">
     <h1 class="mb-4">Admin Panel</h1>
 

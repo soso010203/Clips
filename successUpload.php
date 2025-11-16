@@ -12,6 +12,8 @@ $successfulUpload= $_SESSION['successfulUpload'] ?? "Upload successful!";
     <title>Upload-Successful</title>
  </head>
 <body>
+    
+<?php include 'parts/navbar.php';?> 
 
 <div class="Uploadsuccessful">
     <h1>Upload successful!</h1>

@@ -7,5 +7,6 @@
 </head>
 <body>
     
+<?php include 'parts/navbar.php';?> 
 </body>
 </html>

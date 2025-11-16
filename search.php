@@ -10,6 +10,7 @@
 
 <body class="p-4">  <!-- Bootstrap Search bar, Search-function for the posts-->
 
+<?php include 'parts/navbar.php';?> 
   <div class="container">
     <form class="d-flex" role="search">
       <input class="form-control me-2" type="search" placeholder="Suchbegriff eingeben..." aria-label="Search">
