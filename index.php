@@ -30,6 +30,7 @@
       <img src="Tier01.jpg" class="card-img-top" alt="Tier01">
       <div class="card-body">
         <p class="card-text">Today i saw an interesting bird. Look at the photo!</p>
+        <a href="post.php?1" class="stretched-link"></a>
       </div>
     </div>
   </div>
@@ -39,6 +40,7 @@
       <img src="Landschaft.png" class="card-img-top" alt="Landschaft">
       <div class="card-body">
         <p class="card-text">Look at the beautiful landscape!</p>
+        <a href="post.php?2" class="stretched-link"></a>
       </div>
     </div>
   </div>
@@ -48,6 +50,7 @@
       <img src="Winter.jpg" class="card-img-top" alt="Winter">
       <div class="card-body">
         <p class="card-text">What a beautiful winter day.</p>
+        <a href="post.php?1" class="stretched-link"></a>
       </div>
     </div>
   </div>
