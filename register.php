@@ -101,12 +101,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <form method="post" class="m-3">
         <div class="input-group mb-3">
             <span class="input-group-text">Vorname</span>
-            <input name="firstname" type="text" class="form-control" placeholder="Max" aria-label="firstname" value="<?php echo isset($firstname) ? htmlspecialchars($firstname) : ''; ?>" required>
+            <input name="firstname" type="text" class="form-control" placeholder="Maxine" aria-label="firstname" value="<?php echo isset($firstname) ? htmlspecialchars($firstname) : ''; ?>" required>
         </div>
 
         <div class="input-group mb-3">
             <span class="input-group-text">Nachname</span>
-            <input name="lastname" type="text" class="form-control" placeholder="Mustermann" aria-label="lastname" value="<?php echo isset($lastname) ? htmlspecialchars($lastname) : ''; ?>" required>
+            <input name="lastname" type="text" class="form-control" placeholder="Musterfrau" aria-label="lastname" value="<?php echo isset($lastname) ? htmlspecialchars($lastname) : ''; ?>" required>
         </div>
 
         <div class="input-group mb-3">

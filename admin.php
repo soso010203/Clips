@@ -17,7 +17,8 @@
     <nav class="mb-4">
       <ul class="nav nav-tabs">
         <li class="nav-item">
-          <a class="nav-link" href="#">User Management</a>
+          <a class="nav-link" href="userManagment.php">User Management</a>
+          
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Post Management</a>

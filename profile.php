@@ -7,21 +7,20 @@
 
     <title>profile</title>
 </head>
+
+<header>
+<!-- Navbar -->
+<?php include 'parts/navbar.php';?> 
+</header>
+
 <body>
 
 
 
 
-<?php
-session_start();
-if (isset($_SESSION['user'])) {
-    $displayName = $_SESSION['user']['firstname'] . ' ';
-} else {
-    $displayName = "Guest";
-}
-?>
+<?php $displayName = $_SESSION['user']['firstname'];?>
 
-<h1> Hello <?php echo "$displayName"?>!</h1>
+<h1 class="m-3"> Hello <?php echo "$displayName"?>!</h1>
     
 </body>
 </html>

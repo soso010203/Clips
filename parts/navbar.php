@@ -6,6 +6,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
 // Einfache Prüfung: Session['user']['id'] muss gesetzt sein
 $logged = !empty($_SESSION['user']['id']);
 $displayName = $logged ? htmlspecialchars($_SESSION['user']['firstname'] ?? $_SESSION['user']['email'] ?? 'Profil') : '';
+$isAdmin = $logged && (($_SESSION['user']['role'] ?? '') === 'admin');
 ?>
 <!--Navigation-->
 <nav class="navbar navbar-expand">
@@ -16,7 +17,10 @@ $displayName = $logged ? htmlspecialchars($_SESSION['user']['firstname'] ?? $_SE
         <a class="nav-link active" aria-current="page" href="index.php">home</a>
         <a class="nav-link" href="search.php">search</a>
         <a class="nav-link" href="upload.php">upload</a>
-        <a class="nav-link" href="admin.php">admin</a>
+
+        <?php if ($isAdmin): ?>
+            <a class="nav-link" href="admin.php">admin</a>
+        <?php endif; ?>
 
         <?php if ($logged): ?>
             <a class="nav-link rounded-pill text-bg-dark mx-1" href="profile.php"><?php echo $displayName; ?></a>

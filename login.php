@@ -1,5 +1,4 @@
 <?php
-<?php
 session_start();
 
 // Flash-Messages und letztes Email-Feld holen
