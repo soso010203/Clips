@@ -20,7 +20,7 @@
 
 </header>
 
-<div class="container"> 
+<div class="container-lg"> 
 
 <?php $displayName = $_SESSION['user']['firstname'];?>
 <h1 class="text-center"  style="margin-bottom: 80px;"> Hello <?php echo "$displayName"?>!</h1>
@@ -41,7 +41,7 @@
 
   <div class="col">
     <div class="card">
-      <img src="Landschaft.png" class="card-img-top" alt="Landschaft">
+      <img src="pics/Landschaft.png" class="card-img-top" alt="Landschaft">
       <div class="card-body">
         <p class="card-text">Look at the beautiful landscape!</p>
         <a href="post.php?id=2" class="stretched-link"></a>
@@ -51,7 +51,7 @@
 
   <div class="col">
     <div class="card">
-      <img src="Winter.jpg" class="card-img-top" alt="Winter">
+      <img src="pics/Winter.jpg" class="card-img-top" alt="Winter">
       <div class="card-body">
         <p class="card-text">What a beautiful winter day.</p>
         <a href="post.php?id=3" class="stretched-link"></a>

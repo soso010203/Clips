@@ -1,6 +1,6 @@
 .card {
-    width: 500px;   
-    margin-bottom: 10px; /* Abstand zum nächsten Post */
+    max-width: 500px;
+    margin: 0 auto 10px auto;
 
 }
 

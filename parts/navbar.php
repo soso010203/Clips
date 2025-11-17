@@ -33,6 +33,5 @@ $isAdmin = $logged && (($_SESSION['user']['role'] ?? '') === 'admin');
 
       </div>
     </div>
-  </div>
 </nav>
 
