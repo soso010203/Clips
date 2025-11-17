@@ -21,10 +21,13 @@
 </header>
 
 <div class="container"> 
-<h1 class="text-center"  style="margin-bottom: 80px;"> Welcome @ clips!</h1>
+
+<?php $displayName = $_SESSION['user']['firstname'];?>
+<h1 class="text-center"  style="margin-bottom: 80px;"> Hello <?php echo "$displayName"?>!</h1>
 
 
-<div class="row row-cols-1 row-cols-md-2 g-4 center " > <!-- Bootstrap Grid card layout -->
+
+<div class="row row-cols-1 row-cols-md-2 g-4" > <!-- Bootstrap Grid card layout -->
 
   <div class="col">
     <div class="card">

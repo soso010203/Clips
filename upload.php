@@ -27,7 +27,7 @@
             <textarea class="form-control" id="caption" name="caption" rows="4" placeholder="Write something creative..." required></textarea>
         </div>
 
-        <button type="submit">Publish</button>
+        <button class="btn btn-dark" type="submit">Publish</button>
     </form>
 </div>
 

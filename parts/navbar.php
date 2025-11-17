@@ -14,7 +14,7 @@ $isAdmin = $logged && (($_SESSION['user']['role'] ?? '') === 'admin');
     <a class="navbar-brand" href="#">CLIPS</a>
 
       <div class="navbar-nav ">
-        <a class="nav-link active" aria-current="page" href="index.php">home</a>
+        <a class="nav-link" aria-current="page" href="index.php">home</a>
         <a class="nav-link" href="search.php">search</a>
 
         
@@ -24,7 +24,7 @@ $isAdmin = $logged && (($_SESSION['user']['role'] ?? '') === 'admin');
 
         <?php if ($logged): ?>
             <a class="nav-link" href="upload.php">upload</a>
-            <a class="nav-link rounded-pill text-bg-dark mx-1" href="profile.php"><?php echo $displayName; ?></a>
+            <a class="nav-link rounded-pill text-bg-dark mx-1" href="profile.php">profile</a>
             <a class="nav-link rounded-pill border border-dark text-bg-light mx-1" href="logout.php">logout</a>
         <?php else: ?>
             <a class="nav-link rounded-pill text-bg-dark mx-1" href="register.php">register</a>

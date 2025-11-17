@@ -52,7 +52,7 @@ if ($searchTerm !== "") {
     
     <form class="d-flex mb-4" role="search" method="get">
         <input class="form-control me-2" type="search" name="q" placeholder="Suchbegriff eingeben..." aria-label="Search" value="<?php echo htmlspecialchars($searchTerm); ?>">
-        <button class="btn btn-outline-success" type="submit">Suchen</button>
+        <button class="btn btn-dark" type="submit">Suchen</button>
     </form>
 
     <?php if ($searchTerm !== ""): ?>
