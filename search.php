@@ -40,11 +40,14 @@ if ($searchTerm !== "") {
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 
-<body class="p-4">
 
+<header>
 <?php include 'parts/navbar.php';?> 
+</header>
 
-<div class="container">
+<body>
+
+<div class="container" class="p-4">
     <h1 class="mb-4">Search for posts</h1>
     
     <form class="d-flex mb-4" role="search" method="get">

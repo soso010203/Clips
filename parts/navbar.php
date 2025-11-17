@@ -16,13 +16,14 @@ $isAdmin = $logged && (($_SESSION['user']['role'] ?? '') === 'admin');
       <div class="navbar-nav ">
         <a class="nav-link active" aria-current="page" href="index.php">home</a>
         <a class="nav-link" href="search.php">search</a>
-        <a class="nav-link" href="upload.php">upload</a>
 
+        
         <?php if ($isAdmin): ?>
             <a class="nav-link" href="admin.php">admin</a>
         <?php endif; ?>
 
         <?php if ($logged): ?>
+            <a class="nav-link" href="upload.php">upload</a>
             <a class="nav-link rounded-pill text-bg-dark mx-1" href="profile.php"><?php echo $displayName; ?></a>
             <a class="nav-link rounded-pill border border-dark text-bg-light mx-1" href="logout.php">logout</a>
         <?php else: ?>

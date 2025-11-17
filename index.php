@@ -24,11 +24,11 @@
 <h1 class="text-center"  style="margin-bottom: 80px;"> Welcome @ clips!</h1>
 
 
-<div class="row row-cols-1 row-cols-md-2 g-4 " > <!-- Bootstrap Grid card layout -->
+<div class="row row-cols-1 row-cols-md-2 g-4 center " > <!-- Bootstrap Grid card layout -->
 
   <div class="col">
     <div class="card">
-      <img src="Tier01.jpg" class="card-img-top" alt="Tier01">
+      <img src="pics/Tier01.jpg" class="card-img-top" alt="Tier01">
       <div class="card-body">
         <p class="card-text">Today i saw an interesting bird. Look at the photo!</p>
         <a href="post.php?id=1" class="stretched-link"></a>
