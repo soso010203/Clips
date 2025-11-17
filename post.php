@@ -2,16 +2,28 @@
 // array posts anlegen --> später durch Datenbank ersetzt
 $posts = [
     1 => [
-        "image" => "Tier01.jpg",
+        "image" => "pics/Tier01.jpg",
         "description" => "Today I saw an interesting bird. Look at the photo!"
     ],
     2 => [
-        "image" => "Landschaft.png",
+        "image" => "pics/Landschaft.png",
         "description" => "Look at the beautiful landscape!"
     ],
     3 => [
-        "image" => "Winter.jpg",
+        "image" => "pics/Winter.jpg",
         "description" => "What a beautiful winter day."
+    ],
+     101 => [
+        "image" => "pics/Bild.jpg",
+        "description" => "Enjoying the view from a rocky cliff with a breathtaking landscape behind me."
+    ],
+    102 => [
+        "image" => "pics/Feld.jpg",
+        "description" => "A peaceful field stretches out to the horizon."
+    ],
+    103 => [
+        "image" => "pics/Hase.jpg",
+        "description" => "This little bunny was hopping around, so cute!"
     ]
 ];
 

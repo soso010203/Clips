@@ -44,3 +44,18 @@
     margin-bottom: 20px;
 }
 
+
+.profile-card {
+    border-radius: 10px;
+    max-width: 100%;
+}
+
+
+.profile-img {
+    height: 150px;         
+    object-fit: cover;     
+}
+
+.profile-body {
+    padding: 10px;
+}
