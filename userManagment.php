@@ -1,5 +1,7 @@
 <?php
-session_start();
+if (session_status() !== PHP_SESSION_ACTIVE) {
+    session_start();
+}
 
 // Nur Admins zulassen
 if (empty($_SESSION['user']['id']) || ($_SESSION['user']['role'] ?? '') !== 'admin') {
@@ -46,15 +48,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
         $messages[] = ['type' => 'warning', 'text' => 'Du kannst deinen eigenen Admin-Account nicht löschen.'];
     } else {
         try {
+            $pdo->beginTransaction();
+            // löschen
             $stmt = $pdo->prepare("DELETE FROM `{$table}` WHERE id = :id");
             $stmt->execute(['id' => $deleteId]);
-            if ($stmt->rowCount() > 0) {
-                $messages[] = ['type' => 'success', 'text' => 'Benutzer erfolgreich gelöscht.'];
-            } else {
-                $messages[] = ['type' => 'info', 'text' => 'Kein Benutzer gefunden oder bereits gelöscht.'];
-            }
+
+            // IDs neu durchnummerieren ohne Lücken
+            // Vorgehen: accounts_tmp anlegen, Daten ohne id einfügen (in alter Reihenfolge),
+            // dann alte Tabelle durch neue ersetzen. Fremdschlüssel kurz deaktivieren.
+            $pdo->exec("SET FOREIGN_KEY_CHECKS=0");
+            $pdo->exec("CREATE TABLE `{$table}_tmp` LIKE `{$table}`");
+            $pdo->exec("TRUNCATE TABLE `{$table}_tmp`");
+            // Insert in tmp ohne id => neue IDs von 1..N
+            $pdo->exec("INSERT INTO `{$table}_tmp` (email,password,firstname,lastname,bio,role,created_at)
+                        SELECT email,password,firstname,lastname,bio,role,created_at FROM `{$table}` ORDER BY id");
+            // Tabelle austauschen
+            $pdo->exec("DROP TABLE `{$table}`");
+            $pdo->exec("RENAME TABLE `{$table}_tmp` TO `{$table}`");
+            $pdo->exec("SET FOREIGN_KEY_CHECKS=1");
+
+            $pdo->commit();
+
+            $messages[] = ['type' => 'success', 'text' => 'Benutzer gelöscht und IDs neu durchnummeriert.'];
         } catch (PDOException $e) {
-            $messages[] = ['type' => 'danger', 'text' => 'Fehler beim Löschen: ' . htmlspecialchars($e->getMessage())];
+            $pdo->rollBack();
+            $messages[] = ['type' => 'danger', 'text' => 'Fehler beim Löschen/Reindex: ' . htmlspecialchars($e->getMessage())];
         }
     }
 }

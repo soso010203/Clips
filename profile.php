@@ -18,11 +18,14 @@
 
 
 
-<?php $displayName = $_SESSION['user']['firstname'];?>
+<?php $displayFirstName = $_SESSION['user']['firstname'];
+$displayLastName = $_SESSION['user']['lastname'];?>
 
-<h1 class="m-3"> Hello <?php echo "$displayName"?>!</h1>
 
 <div class="container mt-4">
+
+<h1> <?php echo "$displayFirstName $displayLastName" ?></h1>
+
 
     <h2 class="mb-3">My Posts</h2>
 

@@ -1,34 +1,17 @@
 <?php
 session_start();
 
-// MySQL / MAMP Einstellungen
+// MySQL / MAMP Einstellungen (Setup erfolgt nun via setup_db.php)
 $dbHost = 'localhost';
 $dbUser = 'root';
 $dbPass = 'root';
-
-// Neue DB und Tabelle-Name
 $dbName = 'clips_accounts';
 $table  = 'accounts';
 
 $messages = [];
 
 try {
-    // Zuerst mit Server verbinden (ohne DB), DB erstellen falls nötig
-    $pdo = new PDO("mysql:host={$dbHost};charset=utf8mb4", $dbUser, $dbPass, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-    ]);
-    $pdo->exec("CREATE DATABASE IF NOT EXISTS clips_accounts CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;");
-    $pdo->exec("USE clips_accounts;");
-    $pdo->exec("CREATE TABLE IF NOT EXISTS `accounts` (
-      `id` INT AUTO_INCREMENT PRIMARY KEY,
-      `email` VARCHAR(255) NOT NULL UNIQUE,
-      `password` VARCHAR(255) NOT NULL,
-      `firstname` VARCHAR(100) NOT NULL,
-      `lastname` VARCHAR(100) NOT NULL,
-      `role` ENUM('user','admin') NOT NULL DEFAULT 'user',
-      `created_at` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-    ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;");
-    // Verbindung zur neu angelegten DB
+    // direkte Verbindung zur existierenden DB (keine DB/Tabelle mehr erstellen)
     $pdo = new PDO("mysql:host={$dbHost};dbname={$dbName};charset=utf8mb4", $dbUser, $dbPass, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
         PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
