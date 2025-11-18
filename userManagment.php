@@ -1,7 +1,5 @@
 <?php
-if (session_status() !== PHP_SESSION_ACTIVE) {
-    session_start();
-}
+session_start();
 
 // Nur Admins zulassen
 if (empty($_SESSION['user']['id']) || ($_SESSION['user']['role'] ?? '') !== 'admin') {
@@ -49,29 +47,40 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
     } else {
         try {
             $pdo->beginTransaction();
+
             // löschen
             $stmt = $pdo->prepare("DELETE FROM `{$table}` WHERE id = :id");
             $stmt->execute(['id' => $deleteId]);
 
-            // IDs neu durchnummerieren ohne Lücken
-            // Vorgehen: accounts_tmp anlegen, Daten ohne id einfügen (in alter Reihenfolge),
-            // dann alte Tabelle durch neue ersetzen. Fremdschlüssel kurz deaktivieren.
-            $pdo->exec("SET FOREIGN_KEY_CHECKS=0");
-            $pdo->exec("CREATE TABLE `{$table}_tmp` LIKE `{$table}`");
-            $pdo->exec("TRUNCATE TABLE `{$table}_tmp`");
-            // Insert in tmp ohne id => neue IDs von 1..N
-            $pdo->exec("INSERT INTO `{$table}_tmp` (email,password,firstname,lastname,bio,role,created_at)
-                        SELECT email,password,firstname,lastname,bio,role,created_at FROM `{$table}` ORDER BY id");
-            // Tabelle austauschen
-            $pdo->exec("DROP TABLE `{$table}`");
-            $pdo->exec("RENAME TABLE `{$table}_tmp` TO `{$table}`");
-            $pdo->exec("SET FOREIGN_KEY_CHECKS=1");
+            // Falls keine Zeilen betroffen -> rollback sinnvoll
+            if ($stmt->rowCount() === 0) {
+                $pdo->rollBack();
+                $messages[] = ['type' => 'info', 'text' => 'Kein Benutzer gefunden oder bereits gelöscht.'];
+            } else {
+                // IDs neu durchnummerieren ohne Lücken
+                // WARNUNG: Das Ändern von Primärschlüsseln kann Fremdschlüssel brechen.
+                // Stelle sicher, dass keine FK-Tabellen auf accounts.id verweisen.
+                $tmp = $table . '_tmp';
 
-            $pdo->commit();
+                // Temporär FK-Checks ausschalten, Tabelle kopieren, Daten ohne id einfügen,
+                // alte Tabelle durch neue ersetzen.
+                $pdo->exec("SET FOREIGN_KEY_CHECKS=0");
+                $pdo->exec("CREATE TABLE `{$tmp}` LIKE `{$table}`");
+                $pdo->exec("TRUNCATE TABLE `{$tmp}`");
 
-            $messages[] = ['type' => 'success', 'text' => 'Benutzer gelöscht und IDs neu durchnummeriert.'];
+                // Spaltenliste ohne id - anpassen falls Schema anders ist
+                $pdo->exec("INSERT INTO `{$tmp}` (email,password,firstname,lastname,bio,role,created_at)
+                            SELECT email,password,firstname,lastname,bio,role,created_at FROM `{$table}` ORDER BY id");
+
+                $pdo->exec("DROP TABLE `{$table}`");
+                $pdo->exec("RENAME TABLE `{$tmp}` TO `{$table}`");
+                $pdo->exec("SET FOREIGN_KEY_CHECKS=1");
+
+                $pdo->commit();
+                $messages[] = ['type' => 'success', 'text' => 'Benutzer gelöscht und IDs neu durchnummeriert.'];
+            }
         } catch (PDOException $e) {
-            $pdo->rollBack();
+            if ($pdo->inTransaction()) $pdo->rollBack();
             $messages[] = ['type' => 'danger', 'text' => 'Fehler beim Löschen/Reindex: ' . htmlspecialchars($e->getMessage())];
         }
     }
@@ -95,26 +104,9 @@ if (!$error) {
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <title>User Management</title>
 </head>
-
-<body class="bg-light"> <!-- Bootstrap admin Panel nav bar -->
-
-<?php include 'parts/navbar.php';?> 
-
-  <div class="container py-4">
-    <h1 class="mb-4">Admin Panel</h1>
-
-    <nav class="mb-4">
-      <ul class="nav nav-tabs">
-        <li class="nav-item">
-          <a class="nav-link" href="userManagment.php">User Management</a>
-          
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Post Management</a>
-        </li>
-      </ul>
-    </nav>
-  </div>
+<header>
+    <?php include __DIR__ . '/parts/navbar.php'; ?>
+</header>
 <body>
 <div class="container py-4">
     <h2>Benutzerverwaltung</h2>
@@ -173,4 +165,3 @@ if (!$error) {
 
 </div>
 </body>
-</html>

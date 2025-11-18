@@ -16,7 +16,7 @@
     <h1>Create Your Post</h1>
     <h2>Share your creative ideas with the community!</h2>
 
-    <form method="POST" action="actions/uploadAction.php" enctype="multipart/form-data">
+    <form method="POST" action="uploadAction.php" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="fileInput" class="form-label">Upload your file:</label>
             <input class="form-control" type="file" name="fileInput" id="fileInput" required>

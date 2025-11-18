@@ -27,7 +27,7 @@ unset($_SESSION['messages'], $_SESSION['email']);
         <div class="alert alert-<?php echo htmlspecialchars($m['type']); ?>"><?php echo htmlspecialchars($m['text']); ?></div>
     <?php endforeach; ?>
 
-    <form method="post" action="loginAction.php" class="m-3" novalidate>
+    <form method="post" action="actions/loginAction.php" class="m-3" novalidate>
         <div class="mb-3">
             <label for="LoginEmail" class="form-label">E‑Mail</label>
             <input name="email" type="email" class="form-control" id="LoginEmail" value="<?php echo htmlspecialchars($email); ?>" required>

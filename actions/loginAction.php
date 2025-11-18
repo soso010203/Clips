@@ -17,12 +17,12 @@ try {
     ]);
 } catch (PDOException $e) {
     $_SESSION['messages'][] = ['type' => 'danger', 'text' => 'Datenbankfehler.'];
-    header('Location: login.php');
+    header('Location: ../login.php');
     exit;
 }
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    header('Location: login.php');
+    header('Location: ../login.php');
     exit;
 }
 
@@ -32,14 +32,14 @@ $password = $_POST['password'] ?? '';
 if ($email === '' || !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     $_SESSION['messages'][] = ['type' => 'danger', 'text' => 'Bitte eine gültige E‑Mail-Adresse angeben.'];
     $_SESSION['email'] = $email;
-    header('Location: login.php');
+    header('Location: ../login.php');
     exit;
 }
 
 if ($password === '') {
     $_SESSION['messages'][] = ['type' => 'danger', 'text' => 'Bitte das Passwort eingeben.'];
     $_SESSION['email'] = $email;
-    header('Location: login.php');
+    header('Location: ../login.php');
     exit;
 }
 
@@ -51,14 +51,14 @@ try {
 } catch (PDOException $e) {
     $_SESSION['messages'][] = ['type' => 'danger', 'text' => 'Fehler beim Zugriff auf die Benutzerdaten.'];
     $_SESSION['email'] = $email;
-    header('Location: login.php');
+    header('Location: ../login.php');
     exit;
 }
 
 if (!$user || !password_verify($password, $user['password'])) {
     $_SESSION['messages'][] = ['type' => 'danger', 'text' => 'Ungültige Zugangsdaten.'];
     $_SESSION['email'] = $email;
-    header('Location: login.php');
+    header('Location: ../login.php');
     exit;
 }
 
@@ -71,6 +71,6 @@ $_SESSION['user'] = [
     'role' => $user['role'],
 ];
 
-header('Location: profile.php');
+header('Location: ../profile.php');
 exit;
 ?>

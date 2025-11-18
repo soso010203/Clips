@@ -25,7 +25,7 @@
 <div class="container d-flex flex-column align-items-center"> 
 
 
-<h1 class="text-center m-5"> Hello @</h1>
+<h1 class="text-center m-5"> hello @ clips!</h1>
 
 <!-- Row: bei md+ zwei Spalten (col-md-6), sonst eine (col-12).
      Auf kleinen Bildschirmen centered, auf md+ linksbündig innerhalb
