@@ -69,6 +69,7 @@ $_SESSION['user'] = [
     'firstname' => $user['firstname'],
     'lastname' => $user['lastname'],
     'role' => $user['role'],
+    'created_at' => $user['created_at'] ?? null,
 ];
 
 header('Location: profile.php');
