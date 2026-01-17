@@ -4,7 +4,7 @@ session_start();
 // DB Einstellungen
 $dbHost = 'localhost';
 $dbUser = 'root';
-$dbPass = 'root';
+$dbPass = '';
 $dbName = 'clips_accounts';
 $table  = 'accounts';
 
