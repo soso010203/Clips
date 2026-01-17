@@ -5,7 +5,8 @@
 }
 
 .card-img-top {  
-    height: 300px;           
+    height: 300px;    
+    width: 100%;        
     object-fit: cover;           
 }
 
@@ -59,3 +60,5 @@
 .profile-body {
     padding: 10px;
 }
+
+
