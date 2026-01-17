@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once '../config/db.php'; // allows to connect to the database
+require_once 'config/db.php'; // allows to connect to the database
 
 $caption = ""; // variable caption 
 $fileInput = ""; // variable fileInput
@@ -78,7 +78,7 @@ if (!empty($success))
     {
         session_start();
         $_SESSION['successfulUpload'] = $success;
-        header("Location: ../successUpload.php");
+        header("Location: successUpload.php");
         exit(); 
     }
 
