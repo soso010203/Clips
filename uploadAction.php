@@ -37,7 +37,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         if (!in_array($fileExtension, $allowedExtensions)) {
             $errors[] = "Invalid file format. Allowed: " . implode(", ", $allowedExtensions);
         } else {
-            $uploadFolder = "../uploads/";
+            $uploadFolder = "uploads/";
             if (!is_dir($uploadFolder)) mkdir($uploadFolder, 0777, true);
 
             $filename = uniqid() . '_' . basename($fileInput["name"]);
