@@ -3,8 +3,8 @@ session_start();
 
 // DB Einstellungen
 $dbHost = 'localhost';
-$dbUser = 'root';
-$dbPass = '';
+$dbUser = 'user';
+$dbPass = 'jngwZ6tsl3toM_cb';
 $dbName = 'clips_accounts';
 $table  = 'accounts';
 
@@ -44,7 +44,8 @@ if ($password === '') {
 }
 
 try {
-    $stmt = $pdo->prepare("SELECT id, email, password, firstname, lastname, role FROM `{$table}` WHERE email = :email LIMIT 1");
+    // username und created_at mit abfragen
+    $stmt = $pdo->prepare("SELECT id, email, username, password, firstname, lastname, role, created_at FROM `{$table}` WHERE email = :email LIMIT 1");
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch();
 
@@ -64,11 +65,13 @@ if (!$user || !password_verify($password, $user['password'])) {
 
 // Login erfolgreich -> Session setzen
 $_SESSION['user'] = [
-    'id' => $user['id'],
-    'email' => $user['email'],
-    'firstname' => $user['firstname'],
-    'lastname' => $user['lastname'],
-    'role' => $user['role'],
+    'id'        => $user['id'],
+    'email'     => $user['email'] ?? null,
+    'username'  => $user['username'] ?? null, 
+    'firstname' => $user['firstname'] ?? null,
+    'lastname'  => $user['lastname'] ?? null,
+    'role'      => $user['role'] ?? 'user',
+    'created_at'=> $user['created_at'] ?? null,
 ];
 
 header('Location: ../profile.php');
