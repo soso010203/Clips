@@ -37,14 +37,8 @@ if ($user_id)
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="stylesheet.css">
 <title>Profile</title>
-<style>
-.profile-img, .profile-video {
-    width: 100%;
-    max-height: 250px;
-    object-fit: cover;
-}
-</style>
 </head>
 
 <header>
@@ -56,20 +50,16 @@ if ($user_id)
 
     <h1><?php echo htmlspecialchars("$displayFirstName $displayLastName"); ?></h1>
 
-    <?php if (!empty($username)): ?>
-        <p class="text-muted mb-1">@<?php echo htmlspecialchars($username); ?></p>
-    <?php else: ?>
-        <p class="text-muted mb-1">Mach einen Usernamen!</p>
-    <?php endif; ?>
+    <p class="text-muted mb-1">Your username: @<?php echo htmlspecialchars($username); ?></p>
 
-    <?php if (!empty($created_at)): ?>
-        <p class="text-muted mb-4">Account erstellt: <?php echo htmlspecialchars(date('d.m.Y H:i', strtotime($created_at))); ?></p>
-    <?php endif; ?>
+    <p class="text-muted mb-4">Account created: <?php echo htmlspecialchars(date('d.m.Y', strtotime($created_at))); ?></p>
+   
 
     <h2 class="mb-3">My Posts</h2>
     <div class="row row-cols-1 row-cols-md-3 g-3">
 
         <?php if (!empty($posts)): ?>
+            
             <?php foreach ($posts as $post): ?>
                 <div class="col">
                     <div class="card profile-card h-100">
@@ -77,7 +67,7 @@ if ($user_id)
                             <?php
                             $ext = strtolower(pathinfo($post['file_path'], PATHINFO_EXTENSION));
                             if (in_array($ext, ['jpg','jpeg','png','gif'])): ?>
-                                <img src="<?php echo htmlspecialchars($post['file_path']); ?>" class="card-img-top profile-img" alt="Post">
+                                <img src="<?php echo htmlspecialchars($post['file_path']); ?>" class="card-img-top profile-imges" alt="Post">
                             <?php elseif (in_array($ext, ['mp4','mov'])): ?>
                                 <video class="profile-video" controls>
                                     <source src="<?php echo htmlspecialchars($post['file_path']); ?>" type="video/<?php echo $ext; ?>">
