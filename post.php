@@ -16,7 +16,7 @@ $userStmt->execute([$post['user_id'] ?? 0]);
 $user = $userStmt->fetch();
 
 // select the current user
-$currentUserId = $_SESSION['user']['id'];
+$currentUserId = $_SESSION['user']['id'] ?? null;
 $isOwner = ($currentUserId && $currentUserId == $post['user_id']);
 ?>
 
