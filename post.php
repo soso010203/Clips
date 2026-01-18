@@ -60,11 +60,19 @@ $isOwner = ($currentUserId && $currentUserId == $post['user_id']);
         <p class="post-text"><?php echo nl2br(htmlspecialchars($post['text'])); ?></p>
 
         <?php if ($isOwner): ?>
-            <!-- Button zur Bearbeitung -->
-            <a href="changepost.php?id=<?php echo $post['id']; ?>" class="btn btn-primary mt-2">
-                Edit your post
-            </a>
-        <?php endif; ?>
+    <div class="mt-2 d-flex gap-2">
+        <a href="changepost.php?id=<?php echo $post['id']; ?>" class="btn btn-primary">
+            Edit your post
+        </a>
+
+        <form action="actions/deletepostAction.php" method="post" onsubmit="return confirm('Bist du sicher, dass du diesen Post löschen willst?');">
+            <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
+            <button type="submit" class="btn btn-danger">
+                Delete post
+            </button>
+        </form>
+    </div>
+<?php endif; ?>
     </div>
 
 <?php else: ?>
