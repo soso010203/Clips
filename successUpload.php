@@ -1,8 +1,3 @@
-<?php
-session_start();
-$successfulUpload= $_SESSION['successfulUpload'] ?? "Upload successful!";
-?>
-
 <!DOCTYPE html>
 <html lang="en">
  <head>
