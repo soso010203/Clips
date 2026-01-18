@@ -1,8 +1,8 @@
 <?php
 // db.php
 $dbHost = 'localhost';
-$dbUser = 'root';
-$dbPass = '';  // XAMPP Standard
+$dbUser = 'user';
+$dbPass = 'jngwZ6tsl3toM_cb';  
 $dbName = 'clips_accounts';
 
 try {

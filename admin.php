@@ -1,11 +1,12 @@
 <?php
+
+// Session starten
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
 // Nur Admins zulassen
 if (empty($_SESSION['user']['id']) || ($_SESSION['user']['role'] ?? '') !== 'admin') {
-    $_SESSION['messages'][] = ['type' => 'danger', 'text' => 'Zugriff verweigert. Admins only.'];
     header('Location: index.php');
     exit;
 }
