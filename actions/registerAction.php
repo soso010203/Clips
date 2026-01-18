@@ -10,8 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 
 // DB Settings
 $dbHost = 'localhost';
-$dbUser = 'root';
-$dbPass = 'root';
+$dbUser = 'user';
+$dbPass = 'jngwZ6tsl3toM_cb';
 $dbName = 'clips_accounts';
 $table  = 'accounts';
 
@@ -20,6 +20,7 @@ $firstname = trim($_POST['firstname'] ?? '');
 $lastname  = trim($_POST['lastname'] ?? '');
 $email     = trim($_POST['email'] ?? '');
 $password  = $_POST['password'] ?? '';
+$username  = $_POST['username'] ?? '';
 
 // Vorbefüllung merken
 $_SESSION['firstname'] = $firstname;

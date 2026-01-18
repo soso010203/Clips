@@ -1,9 +1,12 @@
 <?php
 session_start();
+
+
 require_once 'config/db.php';
 
 $displayFirstName = $_SESSION['user']['firstname'] ?? '';
 $displayLastName  = $_SESSION['user']['lastname'] ?? '';
+$username         = $_SESSION['user']['username'] ?? '';
 
 $created_at = $_SESSION['user']['created_at'] ?? null;
 
@@ -51,6 +54,13 @@ if ($user_id) {
 <div class="container mt-4">
 
     <h1><?php echo htmlspecialchars("$displayFirstName $displayLastName"); ?></h1>
+
+    <?php if (!empty($username)): ?>
+        <p class="text-muted mb-1">@<?php echo htmlspecialchars($username); ?></p>
+    <?php else: ?>
+        <p class="text-muted mb-1">Mach einen Usernamen!</p>
+    <?php endif; ?>
+
     <?php if (!empty($created_at)): ?>
         <p class="text-muted mb-4">Account erstellt: <?php echo htmlspecialchars(date('d.m.Y H:i', strtotime($created_at))); ?></p>
     <?php endif; ?>

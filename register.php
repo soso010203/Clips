@@ -2,11 +2,12 @@
 session_start();
 
 // Flash-Messages und vorherige Formularwerte aus der Session
-$messages = $_SESSION['messages'] ?? [];
+$messages  = $_SESSION['messages'] ?? [];
 $firstname = $_SESSION['firstname'] ?? '';
 $lastname  = $_SESSION['lastname'] ?? '';
 $email     = $_SESSION['email'] ?? '';
-unset($_SESSION['messages'], $_SESSION['firstname'], $_SESSION['lastname'], $_SESSION['email']);
+$username  = $_SESSION['username'] ?? '';
+unset($_SESSION['messages'], $_SESSION['firstname'], $_SESSION['lastname'], $_SESSION['email'], $_SESSION['username']);
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -18,7 +19,6 @@ unset($_SESSION['messages'], $_SESSION['firstname'], $_SESSION['lastname'], $_SE
 </head>
 
 <header>
-<!-- Navbar -->
 <?php include 'parts/navbar.php';?> 
 </header>
 
@@ -31,6 +31,11 @@ unset($_SESSION['messages'], $_SESSION['firstname'], $_SESSION['lastname'], $_SE
     <?php endforeach; ?>
 
     <form method="post" action="actions/registerAction.php" class="m-3">
+        <div class="input-group mb-3">
+            <span class="input-group-text">Username</span>
+            <input name="username" type="text" class="form-control" placeholder="madmax_12" aria-label="username" value="<?php echo htmlspecialchars($username); ?>" required>
+        </div>
+
         <div class="input-group mb-3">
             <span class="input-group-text">Vorname</span>
             <input name="firstname" type="text" class="form-control" placeholder="Maxine" aria-label="firstname" value="<?php echo htmlspecialchars($firstname); ?>" required>
