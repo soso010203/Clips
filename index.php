@@ -41,7 +41,7 @@ $posts = $stmt->fetchAll();
 
 <?php include 'parts/navbar.php'; ?>
 
-<div class="container d-flex flex-column align-items-center">
+<div class="container-lg">
 
     <h1 class="text-center m-5">
         <?php if ($currentUserId): ?>
@@ -51,14 +51,14 @@ $posts = $stmt->fetchAll();
         <?php endif; ?>
     </h1>
 
-    <div class="row justify-content-md-start" style="max-width:90%;">
+<div class="row mx-auto" style="max-width:90%;">
 
         <?php if (count($posts) === 0): ?>
             <p class="text-center">Noch keine Posts vorhanden.</p>
         <?php endif; ?>
 
         <?php foreach ($posts as $post): ?>
-            <div class="col-12 col-md-6 d-flex mb-4">
+            <div class="col-12 col-md-6 mb-4">
                 <div class="card w-100">
 
                     <!-- Post Image -->
@@ -72,7 +72,7 @@ $posts = $stmt->fetchAll();
                     <div class="card-body">
                         <p class="card-text" style="
                             display: -webkit-box;
-                            -webkit-line-clamp: 2;
+                            -webkit-line-clamp: 1;
                             -webkit-box-orient: vertical;
                             overflow: hidden;
                             text-overflow: ellipsis;
