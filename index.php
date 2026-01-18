@@ -76,20 +76,18 @@ $posts = $stmt->fetchAll(); //posts is an array from all data of the datatbase
 
                     <!-- Caption from the database-->
                     <div class="card-body">
-                        <p class="card-text" style="
-                            display: -webkit-box;
-                            -webkit-line-clamp: 1;
-                            -webkit-box-orient: vertical;
-                            overflow: hidden;
-                            text-overflow: ellipsis;
-                        ">
-                            <?php echo htmlspecialchars($post['text']); ?>
+                        <p style=" display: -webkit-box; 
+                                -webkit-line-clamp: 1;
+                                -webkit-box-orient: vertical;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                "> <!--only one line of the description is visible -->
+                        <?php echo htmlspecialchars($post['text']); ?>
                         </p>
-
-                        <!-- Link to Post Detail -->
-                        <a href="post.php?id=<?php echo $post['id']; ?>" class="stretched-link"></a>
                     </div>
 
+                    <!-- Link to post with the right id -->
+                        <a href="post.php?id=<?php echo $post['id']; ?>" class="stretched-link"></a>
                 </div>
             </div>
         <?php endforeach; ?>
