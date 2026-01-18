@@ -78,7 +78,7 @@ if ($user_id)
                         <div class="card-body profile-body">
 
                             <!-- displays only 2 lines of the caption, that was posted -->
-                            <p style="display: -webkit-box; -webkit-line-clamp:2; -webkit-box-orient: vertical; overflow: hidden;"> 
+                            <p style="display: -webkit-box; -webkit-line-clamp:1; -webkit-box-orient: vertical; overflow: hidden;"> 
                             <?php echo htmlspecialchars($post['text']); ?>
                             </p>
 
