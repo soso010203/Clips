@@ -3,22 +3,20 @@ session_start();
 require_once 'config/db.php';
 
 $postId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-if (!$postId) {
-    die("Ungültige Post-ID");
-}
 
-// Post holen
+
+// select the current post
 $stmt = $pdo->prepare("SELECT * FROM posts WHERE id = ?");
 $stmt->execute([$postId]);
 $post = $stmt->fetch();
 
-// Poster info
+// prepare infos about the post
 $userStmt = $pdo->prepare("SELECT firstname, lastname FROM accounts WHERE id = ?");
 $userStmt->execute([$post['user_id'] ?? 0]);
 $user = $userStmt->fetch();
 
-// Prüfen ob eingeloggter User der Owner ist
-$currentUserId = $_SESSION['user']['id'] ?? null;
+// select the current user
+$currentUserId = $_SESSION['user']['id'];
 $isOwner = ($currentUserId && $currentUserId == $post['user_id']);
 ?>
 
