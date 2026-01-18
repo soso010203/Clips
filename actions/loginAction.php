@@ -66,8 +66,8 @@ if (!$user || !password_verify($password, $user['password'])) {
 // Login erfolgreich -> Session setzen
 $_SESSION['user'] = [
     'id'        => $user['id'],
-    'email'     => $user['email'] ?? null,
     'username'  => $user['username'] ?? null, 
+    'email'     => $user['email'] ?? null,
     'firstname' => $user['firstname'] ?? null,
     'lastname'  => $user['lastname'] ?? null,
     'role'      => $user['role'] ?? 'user',

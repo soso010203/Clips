@@ -43,6 +43,11 @@ if (strlen($password) < 6) {
     $messages[] = ['type' => 'danger', 'text' => 'Passwort muss mindestens 6 Zeichen lang sein.'];
 }
 
+if ($username === '' || mb_strlen($username) < 3) {
+    $messages[] = ['type' => 'danger', 'text' => 'Bitte einen gültigen Usernamen angeben (mindestens 3 Zeichen).'];
+}
+
+
 if (!empty($messages)) {
     $_SESSION['messages'] = $messages;
     header('Location: ../register.php');
@@ -67,8 +72,9 @@ try {
 
     // Insert
     $hash = password_hash($password, PASSWORD_DEFAULT);
-    $ins = $pdo->prepare("INSERT INTO `{$table}` (email, password, firstname, lastname, role, created_at) VALUES (:email, :password, :firstname, :lastname, :role, NOW())");
+    $ins = $pdo->prepare("INSERT INTO `{$table}` (username, email, password, firstname, lastname, role, created_at) VALUES (:username, :email, :password, :firstname, :lastname, :role, NOW())");
     $ins->execute([
+        'username'  => $username,
         'email'     => $email,
         'password'  => $hash,
         'firstname' => $firstname,
