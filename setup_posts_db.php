@@ -1,8 +1,8 @@
 <?php
 
 $dbHost = 'localhost';  //myadminphp 
-$dbUser = 'root';
-$dbPass = ''; 
+$dbUser = 'user';
+$dbPass = 'jngwZ6tsl3toM_cb'; 
 $dbName = 'clips_accounts'; //Database name 
 $table  = 'posts'; //table of the database
 
