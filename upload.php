@@ -19,7 +19,7 @@
     <form method="POST" action="uploadAction.php" enctype="multipart/form-data">
         <div class="mb-3">
             <label for="fileInput" class="form-label">Upload your file:</label>
-            <input class="form-control" type="file" name="fileInput" id="fileInput" required>
+            <input class="form-control" type="file" name="fileInput" id="fileInput" required> <!-- name = important for the php -->
         </div>
 
         <div class="mb-3">
