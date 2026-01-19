@@ -43,6 +43,7 @@ $posts = $stmt->fetchAll(); //posts is an array from all data of the datatbase
 </head>
 <body>
 
+
 <?php include 'parts/navbar.php'; ?> 
 
 <div class="container-lg">

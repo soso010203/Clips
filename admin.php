@@ -15,12 +15,7 @@ if (empty($_SESSION['user']['id']) || ($_SESSION['user']['role'] ?? '') !== 'adm
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(16));
 }
-
-// DB Einstellungen
-$dbHost = 'localhost';
-$dbUser = 'root';
-$dbPass = 'root';
-$dbName = 'clips_accounts';
+require_once 'config/db.php';
 $table  = 'accounts';
 
 $users = [];
@@ -65,7 +60,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 // Benutzer laden (immer)
 if (!$error) {
     try {
-        $stmt = $pdo->query("SELECT id, email, firstname, lastname, role, created_at FROM `{$table}` ORDER BY id DESC");
+    
+        $stmt = $pdo->query("SELECT id, email, username, firstname, lastname, role FROM `{$table}` ORDER BY id DESC");
         $users = $stmt->fetchAll();
     } catch (PDOException $e) {
         $error = 'Datenbankfehler: ' . htmlspecialchars($e->getMessage());
@@ -95,14 +91,14 @@ if (!$error) {
           
         </li>
         <li class="nav-item">
-          <a class="nav-link text-body-tertiary" href="#">Post Management</a>
+          <a class="nav-link text-body-tertiary" href="postManagement.php">Post Management</a>
         </li>
       </ul>
     </nav>
   </div>
 <body>
 <div class="container py-4">
-    <h2>Benutzerverwaltung</h2>
+    <h2>User Management</h2>
 
     <?php if ($error): ?>
         <div class="alert alert-danger"><?php echo $error; ?></div>
@@ -120,23 +116,24 @@ if (!$error) {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>E‑Mail</th>
-                        <th>Vorname</th>
-                        <th>Nachname</th>
-                        <th>Rolle</th>
-                        <th>Erstellt</th>
-                        <th>Aktion</th>
+                        <th>user</th>
+                        <th>mail</th>
+                        <th>firstname</th>
+                        <th>lastname</th>
+                        <th>role</th>
+                        <th>delete</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($users as $u): ?>
                     <tr>
                         <td><?php echo htmlspecialchars($u['id']); ?></td>
+                        <td><?php echo htmlspecialchars($u['username']); ?></td>
                         <td><?php echo htmlspecialchars($u['email']); ?></td>
                         <td><?php echo htmlspecialchars($u['firstname']); ?></td>
                         <td><?php echo htmlspecialchars($u['lastname']); ?></td>
                         <td><?php echo htmlspecialchars($u['role']); ?></td>
-                        <td><?php echo htmlspecialchars($u['created_at']); ?></td>
+                        
                         <td>
                             <?php if ($u['id'] == ($_SESSION['user']['id'] ?? 0)): ?>
                                 <span class="text-muted">Eigenes Konto</span>
