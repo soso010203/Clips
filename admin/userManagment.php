@@ -1,5 +1,7 @@
 <?php
-session_start();
+if(!isset($_SESSION)){
+    session_start();
+}
 
 // Nur Admins zulassen
 if (empty($_SESSION['user']['id']) || ($_SESSION['user']['role'] ?? '') !== 'admin') {
@@ -13,11 +15,7 @@ if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(16));
 }
 
-// DB Einstellungen
-$dbHost = 'localhost';
-$dbUser = 'root';
-$dbPass = 'root';
-$dbName = 'clips_accounts';
+require_once __DIR__ . '/../config/db.php'; 
 $table  = 'accounts';
 
 $users = [];
@@ -69,8 +67,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 $pdo->exec("TRUNCATE TABLE `{$tmp}`");
 
                 // Spaltenliste ohne id - anpassen falls Schema anders ist
-                $pdo->exec("INSERT INTO `{$tmp}` (email,password,firstname,lastname,bio,role,created_at)
-                            SELECT email,password,firstname,lastname,bio,role,created_at FROM `{$table}` ORDER BY id");
+                // username mit einfügen, damit es nicht verloren geht
+                $pdo->exec("INSERT INTO `{$tmp}` (email,username,password,firstname,lastname,bio,role,created_at)
+                            SELECT email,username,password,firstname,lastname,bio,role,created_at FROM `{$table}` ORDER BY id");
 
                 $pdo->exec("DROP TABLE `{$table}`");
                 $pdo->exec("RENAME TABLE `{$tmp}` TO `{$table}`");
@@ -89,27 +88,19 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 // Benutzer laden (immer)
 if (!$error) {
     try {
-        $stmt = $pdo->query("SELECT id, email, firstname, lastname, role, created_at FROM `{$table}` ORDER BY id DESC");
+        // username mit abfragen
+        $stmt = $pdo->query("SELECT id, email, username, firstname, lastname, role, created_at FROM `{$table}` ORDER BY id DESC");
         $users = $stmt->fetchAll();
     } catch (PDOException $e) {
         $error = 'Datenbankfehler: ' . htmlspecialchars($e->getMessage());
     }
 }
 ?>
-<!DOCTYPE html>
-<html lang="de">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-    <title>User Management</title>
-</head>
-<header>
-    <?php include __DIR__ . '/parts/navbar.php'; ?>
-</header>
+
+
 <body>
 <div class="container py-4">
-    <h2>Benutzerverwaltung</h2>
+    <h2>User Management</h2>
 
     <?php if ($error): ?>
         <div class="alert alert-danger"><?php echo $error; ?></div>
@@ -127,23 +118,24 @@ if (!$error) {
                 <thead>
                     <tr>
                         <th>ID</th>
-                        <th>E‑Mail</th>
-                        <th>Vorname</th>
-                        <th>Nachname</th>
-                        <th>Rolle</th>
-                        <th>Erstellt</th>
-                        <th>Aktion</th>
+                        <th>user</th>
+                        <th>mail</th>
+                        <th>firstname</th>
+                        <th>lastname</th>
+                        <th>role</th>
+                        <th>delete</th>
                     </tr>
                 </thead>
                 <tbody>
                 <?php foreach ($users as $u): ?>
                     <tr>
                         <td><?php echo htmlspecialchars($u['id']); ?></td>
+                        <td><?php echo htmlspecialchars($u['username']); ?></td>
                         <td><?php echo htmlspecialchars($u['email']); ?></td>
                         <td><?php echo htmlspecialchars($u['firstname']); ?></td>
                         <td><?php echo htmlspecialchars($u['lastname']); ?></td>
                         <td><?php echo htmlspecialchars($u['role']); ?></td>
-                        <td><?php echo htmlspecialchars($u['created_at']); ?></td>
+                        
                         <td>
                             <?php if ($u['id'] == ($_SESSION['user']['id'] ?? 0)): ?>
                                 <span class="text-muted">Eigenes Konto</span>

@@ -1,19 +1,19 @@
-
 <?php
-session_start();
 
-// Nur Admins
-if (empty($_SESSION['user']['id']) || ($_SESSION['user']['role'] ?? '') !== 'admin') {
-    header('Location: index.php');
-    exit;
+if(!isset($_SESSION)){
+    session_start();
 }
+
+
 
 // CSRF
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(16));
 }
 
-require_once __DIR__ . '/config/db.php';
+require_once __DIR__ . '/../config/db.php'; 
+
+
 $postsTable = 'posts';
 $usersTable = 'accounts';
 
@@ -69,16 +69,6 @@ try {
     $messages[] = ['type' => 'danger', 'text' => 'Datenbankfehler: ' . htmlspecialchars($e->getMessage())];
 }
 ?>
-<!DOCTYPE html>
-<html lang="de">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<title>Post Management</title>
-</head>
-<body class="bg-light">
-<?php include __DIR__ . '/parts/navbar.php'; ?>
 
 <div class="container py-4">
     <h1 class="mb-4">Post Management</h1>
