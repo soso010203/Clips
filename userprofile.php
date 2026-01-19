@@ -2,6 +2,8 @@
 session_start();
 require_once 'config/db.php';
 
+require 'actions/userprofileAction.php';
+
 $userId = filter_input(INPUT_GET, 'user_id', FILTER_VALIDATE_INT);
 
 // User-Daten abrufen

@@ -2,19 +2,7 @@
 session_start();
 require_once 'config/db.php';
 
-// filters the id after the ? in the URL 
-$postId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-
-$stmt = $pdo->prepare("SELECT posts.*, accounts.username 
-                       FROM posts 
-                       JOIN accounts ON posts.user_id = accounts.id
-                       WHERE posts.id = ?");
-
-$stmt->execute([$postId]);
-$post = $stmt->fetch();
-
-$currentUserId = $_SESSION['user']['id'] ?? null;
-$isOwner = ($currentUserId && $currentUserId == $post['user_id']);
+require 'actions/postAction.php'; // loads the post, username + userid + owner
 
 ?>
 
@@ -36,6 +24,8 @@ $isOwner = ($currentUserId && $currentUserId == $post['user_id']);
 <body>
 
 <?php include 'parts/navbar.php'; ?>
+
+<!--User Story number 2 -->
 
 <div class="container mt-5 post-container">
 
