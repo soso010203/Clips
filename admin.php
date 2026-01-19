@@ -3,15 +3,17 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
-// Only Admins zulassen
+// Only Admins 
 if (empty($_SESSION['user']['id']) || ($_SESSION['user']['role'] ?? '') !== 'admin') {
     header('Location: index.php');
     exit;
 }
 
 
-// Tab-Auswahl: 'users' (default) oder 'posts'
+// Tab-Auswahl between 'users' or 'posts'
 $tab = isset($_GET['tab']) && $_GET['tab'] === 'posts' ? 'posts' : 'users';
+
+
 ?>
 <!DOCTYPE html>
 <html lang="de">
@@ -30,27 +32,29 @@ $tab = isset($_GET['tab']) && $_GET['tab'] === 'posts' ? 'posts' : 'users';
     <nav class="mb-4">
         <ul class="nav nav-tabs">
             <li class="nav-item">
-              <a class="nav-link <?php echo $tab === 'users' ? 'active' : ''; ?>" href="admin.php?tab=users">User Management</a>
+              <a class="nav-link <?php echo $tab === 'users' ? 'active' : 'dark'; ?>" href="admin.php?tab=users">User Management</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link <?php echo $tab === 'posts' ? 'active' : ''; ?>" href="admin.php?tab=posts">Post Management</a>
+              <a class="nav-link <?php echo $tab === 'posts' ? 'active' : 'dark'; ?>" href="admin.php?tab=posts">Post Management</a>
             </li>
         </ul>
     </nav>
 
     <?php
-    // sichere Include‑Map (verhindert Pfadmanipulation)
+
+    // Include‑Map for tabs
     $includeMap = [
         'users' => __DIR__ . '/admin/userManagment.php',
         'posts' => __DIR__ . '/admin/postManagement.php'
     ];
 
+    //action variable to include correct file
     $includeFile = $includeMap[$tab] ?? $includeMap['users'];
 
     if (file_exists($includeFile)) {
         include $includeFile;
     } else {
-        echo '<div class="alert alert-danger">Include-Datei nicht gefunden.</div>';
+        echo '<div class="alert alert-danger">file not found!</div>'; // Message if file is not found
     }
     ?>
 
