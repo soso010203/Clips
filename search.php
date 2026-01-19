@@ -23,6 +23,7 @@ require 'actions/searchAction.php';
 </header>
 
 <!-- User Story number 4 -->
+ 
 <div class="container py-4">
 
     <h1 class="mb-4">Search for posts</h1>
