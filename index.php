@@ -3,7 +3,7 @@ session_start();
 
 require_once 'config/db.php'; //connects to the database
 
-require 'actions/indexAction.php'; //loads the posts from the database
+require 'actions/indexAction.php'; 
 
 ?>
 
