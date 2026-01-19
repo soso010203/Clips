@@ -9,62 +9,6 @@ if (empty($_SESSION['user']['id']) || ($_SESSION['user']['role'] ?? '') !== 'adm
     exit;
 }
 
-// CSRF-Token für Löschaktionen
-if (empty($_SESSION['csrf_token'])) {
-    $_SESSION['csrf_token'] = bin2hex(random_bytes(16));
-}
-require_once 'config/db.php';
-$table  = 'accounts';
-
-$users = [];
-$error = null;
-$messages = []; // lokale Anzeige zusätzlich zu session messages
-
-try {
-    $pdo = new PDO("mysql:host={$dbHost};dbname={$dbName};charset=utf8mb4", $dbUser, $dbPass, [
-        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-        PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-    ]);
-} catch (PDOException $e) {
-    $error = 'Datenbankfehler: ' . htmlspecialchars($e->getMessage());
-}
-
-// Löschanfrage verarbeiten
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['action'] === 'delete') {
-    $deleteId = intval($_POST['delete_id'] ?? 0);
-    $token = $_POST['csrf_token'] ?? '';
-
-    if (!hash_equals($_SESSION['csrf_token'], $token)) {
-        $messages[] = ['type' => 'danger', 'text' => 'Ungültiger Request (CSRF).'];
-    } elseif ($deleteId <= 0) {
-        $messages[] = ['type' => 'danger', 'text' => 'Ungültige Benutzer-ID.'];
-    } elseif ($deleteId == ($_SESSION['user']['id'] ?? 0)) {
-        $messages[] = ['type' => 'warning', 'text' => 'Du kannst deinen eigenen Admin-Account nicht löschen.'];
-    } else {
-        try {
-            $stmt = $pdo->prepare("DELETE FROM `{$table}` WHERE id = :id");
-            $stmt->execute(['id' => $deleteId]);
-            if ($stmt->rowCount() > 0) {
-                $messages[] = ['type' => 'success', 'text' => 'Benutzer erfolgreich gelöscht.'];
-            } else {
-                $messages[] = ['type' => 'info', 'text' => 'Kein Benutzer gefunden oder bereits gelöscht.'];
-            }
-        } catch (PDOException $e) {
-            $messages[] = ['type' => 'danger', 'text' => 'Fehler beim Löschen: ' . htmlspecialchars($e->getMessage())];
-        }
-    }
-}
-
-// Benutzer laden (immer)
-if (!$error) {
-    try {
-    
-        $stmt = $pdo->query("SELECT id, email, username, firstname, lastname, role FROM `{$table}` ORDER BY id DESC");
-        $users = $stmt->fetchAll();
-    } catch (PDOException $e) {
-        $error = 'Datenbankfehler: ' . htmlspecialchars($e->getMessage());
-    }
-}
 
 // Tab-Auswahl: 'users' (default) oder 'posts'
 $tab = isset($_GET['tab']) && $_GET['tab'] === 'posts' ? 'posts' : 'users';

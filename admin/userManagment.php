@@ -63,13 +63,22 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
                 // Temporär FK-Checks ausschalten, Tabelle kopieren, Daten ohne id einfügen,
                 // alte Tabelle durch neue ersetzen.
                 $pdo->exec("SET FOREIGN_KEY_CHECKS=0");
-                $pdo->exec("CREATE TABLE `{$tmp}` LIKE `{$table}`");
+                $pdo->exec("CREATE TABLE IF NOT EXISTS `{$tmp}` LIKE `{$table}`");
                 $pdo->exec("TRUNCATE TABLE `{$tmp}`");
 
-                // Spaltenliste ohne id - anpassen falls Schema anders ist
-                // username mit einfügen, damit es nicht verloren geht
-                $pdo->exec("INSERT INTO `{$tmp}` (email,username,password,firstname,lastname,bio,role,created_at)
-                            SELECT email,username,password,firstname,lastname,bio,role,created_at FROM `{$table}` ORDER BY id");
+                // dynamisch alle Spalten außer 'id' ermitteln und kopieren
+                $colsStmt = $pdo->query("SHOW COLUMNS FROM `{$table}`");
+                $cols = [];
+                while ($col = $colsStmt->fetch(PDO::FETCH_ASSOC)) {
+                    if ($col['Field'] === 'id') continue;
+                    $cols[] = $col['Field'];
+                }
+                if (empty($cols)) {
+                    throw new Exception('Keine Spalten zum Kopieren gefunden.');
+                }
+                $colList = implode(',', array_map(function($c){ return "`{$c}`"; }, $cols));
+
+                $pdo->exec("INSERT INTO `{$tmp}` ({$colList}) SELECT {$colList} FROM `{$table}` ORDER BY id");
 
                 $pdo->exec("DROP TABLE `{$table}`");
                 $pdo->exec("RENAME TABLE `{$tmp}` TO `{$table}`");
