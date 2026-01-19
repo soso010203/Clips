@@ -1,29 +1,9 @@
 <?php
-
 session_start();
 
 require_once 'config/db.php'; //connects to the database
 
-//catches the search word
-$searchTerm = $_GET['searchword'] ?? "";
-$searchTerm = trim($searchTerm);
-
-$results = [];
-
-if ($searchTerm !== "") 
-{
-    // this is a prepared Statement: searches in the database in the column text
-    $stmt = $pdo->prepare
-    ("  SELECT id, file_path, text
-        FROM posts
-        WHERE text LIKE ?
-        ORDER BY created_at DESC
-        LIMIT 50
-    ");
-
-    $stmt->execute(["%$searchTerm%"]);
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-}
+require 'actions/searchAction.php';
 ?>
 
 <!doctype html>
@@ -42,6 +22,8 @@ if ($searchTerm !== "")
     <?php include 'parts/navbar.php'; ?> 
 </header>
 
+<!-- User Story number 4 -->
+ 
 <div class="container py-4">
 
     <h1 class="mb-4">Search for posts</h1>

@@ -2,19 +2,7 @@
 session_start();
 require_once 'config/db.php';
 
-// filters the id after the ? in the URL 
-$postId = filter_input(INPUT_GET, 'id', FILTER_VALIDATE_INT);
-
-$stmt = $pdo->prepare("SELECT posts.*, accounts.username 
-                       FROM posts 
-                       JOIN accounts ON posts.user_id = accounts.id
-                       WHERE posts.id = ?");
-
-$stmt->execute([$postId]);
-$post = $stmt->fetch();
-
-$currentUserId = $_SESSION['user']['id'];
-$isOwner = ($currentUserId && $currentUserId == $post['user_id']);
+require 'actions/postAction.php'; // loads the post, username + userid + owner
 
 ?>
 
@@ -37,20 +25,26 @@ $isOwner = ($currentUserId && $currentUserId == $post['user_id']);
 
 <?php include 'parts/navbar.php'; ?>
 
+<!--User Story number 2 -->
+
 <div class="container mt-5 post-container">
 
 <?php if ($post): ?>
 
     <div class="mb-4">
-        <!--shows the username of the logged in user -->
-        <p class="fw-bold mb-0">
-            posted by: <?php echo htmlspecialchars($post['username']); ?>
-        </p>
-        <!--shows the date, when the account was created (of the logged in user)-->
-        <small class="text-muted">
-            <?php echo date("d.m.Y H:i", strtotime($post['created_at'])); ?>
-        </small>
-    </div>
+    <!-- shows the username of the user who created the post -->
+    <p class="fw-bold mb-0">
+        <a href="userprofile.php?user_id=<?php echo $post['user_id']; ?>" style="text-decoration: none; color: inherit;">
+           posted by: <?php echo htmlspecialchars($post['username']); ?>
+        </a>
+    </p>
+
+    <!-- shows the date when the post was created -->
+    <small class="text-muted">
+        <?php echo date("d.m.Y H:i", strtotime($post['created_at'])); ?>
+    </small>
+</div>
+
 
     <div class="text-center mb-4">
         <img src="<?php echo htmlspecialchars($post['file_path']); ?>" class="post-image rounded" alt="Post image">

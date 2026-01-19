@@ -1,3 +1,5 @@
+<!--User Story Number 1 -->
+
 <?php
 $currentUserId = $_SESSION['user']['id'] ?? null; 
 
