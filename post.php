@@ -12,6 +12,10 @@ $stmt = $pdo->prepare("SELECT posts.*, accounts.username
 
 $stmt->execute([$postId]);
 $post = $stmt->fetch();
+
+$currentUserId = $_SESSION['user']['id'];
+$isOwner = ($currentUserId && $currentUserId == $post['user_id']);
+
 ?>
 
 <!DOCTYPE html>
@@ -56,6 +60,21 @@ $post = $stmt->fetch();
         <p class="post-text"><?php echo nl2br(htmlspecialchars($post['text'])); ?></p>
     </div>
 
+    <?php if ($isOwner): ?>
+    <div class="mt-2 d-flex gap-2">
+        <a href="changepost.php?id=<?php echo $post['id']; ?>" class="btn btn-primary">
+            Edit your post
+        </a>
+
+        <form action="actions/deletepostAction.php" method="post" onsubmit="return confirm('Are you sure you want to delete the post?');">
+            <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
+            <button type="submit" class="btn btn-danger">
+                Delete post
+            </button>
+        </form>
+    </div>
+    
+<?php endif; ?>
 <?php else: ?>
     <div class="alert alert-warning text-center">
         This post doesn't exist.
