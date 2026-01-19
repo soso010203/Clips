@@ -42,15 +42,19 @@ $isOwner = ($currentUserId && $currentUserId == $post['user_id']);
 <?php if ($post): ?>
 
     <div class="mb-4">
-        <!--shows the username of the logged in user -->
-        <p class="fw-bold mb-0">
-            posted by: <?php echo htmlspecialchars($post['username']); ?>
-        </p>
-        <!--shows the date, when the account was created (of the logged in user)-->
-        <small class="text-muted">
-            <?php echo date("d.m.Y H:i", strtotime($post['created_at'])); ?>
-        </small>
-    </div>
+    <!-- shows the username of the user who created the post -->
+    <p class="fw-bold mb-0">
+        <a href="userprofile.php?user_id=<?php echo $post['user_id']; ?>" style="text-decoration: none; color: inherit;">
+           posted by: <?php echo htmlspecialchars($post['username']); ?>
+        </a>
+    </p>
+
+    <!-- shows the date when the post was created -->
+    <small class="text-muted">
+        <?php echo date("d.m.Y H:i", strtotime($post['created_at'])); ?>
+    </small>
+</div>
+
 
     <div class="text-center mb-4">
         <img src="<?php echo htmlspecialchars($post['file_path']); ?>" class="post-image rounded" alt="Post image">
