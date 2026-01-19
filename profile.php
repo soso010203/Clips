@@ -63,18 +63,12 @@ if ($user_id)
             <?php foreach ($posts as $post): ?>
                 <div class="col">
                     <div class="card profile-card h-100">
+
+                        <!--check if the file_path is not empty, then displays the post-->
                         <?php if (!empty($post['file_path'])): ?>
-                            <?php
-                            $ext = strtolower(pathinfo($post['file_path'], PATHINFO_EXTENSION));
-                            if (in_array($ext, ['jpg','jpeg','png','gif'])): ?>
-                                <img src="<?php echo htmlspecialchars($post['file_path']); ?>" class="card-img-top profile-imges" alt="Post">
-                            <?php elseif (in_array($ext, ['mp4','mov'])): ?>
-                                <video class="profile-video" controls>
-                                    <source src="<?php echo htmlspecialchars($post['file_path']); ?>" type="video/<?php echo $ext; ?>">
-                                    Dein Browser unterstützt dieses Videoformat nicht.
-                                </video>
-                            <?php endif; ?>
+                            <img src="<?php echo htmlspecialchars($post['file_path']); ?>" class="card-img-top profile-imges" alt="Post">
                         <?php endif; ?>
+
                         <div class="card-body profile-body">
 
                             <!-- displays only 2 lines of the caption, that was posted -->
@@ -88,7 +82,7 @@ if ($user_id)
                 </div>
             <?php endforeach; ?>
         <?php else: ?>
-            <p>Du hast noch keine Posts.</p>
+            <p>There are no posts available!</p>
         <?php endif; ?>
 
     </div>
