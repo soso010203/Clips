@@ -1,6 +1,6 @@
 <?php
 session_start();
-require_once __DIR__ . '/../config/db.php'; //go outside the folder actions
+require_once __DIR__ . '/../config/db.php'; 
 
 // search for the current post id
 $postId = filter_input(INPUT_POST, 'post_id', FILTER_VALIDATE_INT); 
