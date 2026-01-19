@@ -13,7 +13,7 @@ $stmt = $pdo->prepare("SELECT posts.*, accounts.username
 $stmt->execute([$postId]);
 $post = $stmt->fetch();
 
-$currentUserId = $_SESSION['user']['id'];
+$currentUserId = $_SESSION['user']['id'] ?? null;
 $isOwner = ($currentUserId && $currentUserId == $post['user_id']);
 
 ?>
