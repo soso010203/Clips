@@ -23,15 +23,17 @@ require 'actions/indexAction.php'; //loads the posts from the database
 
 <div class="container-lg">
 
-    <h1 class="text-center m-5">
-        <!-- for registered user -->
-        <?php if ($currentUserId): ?>
-            Hello 
-        <!-- for guest user -->
-        <?php else: ?>
-            Welcome! 
-        <?php endif; ?>
-    </h1>
+   <h1 class="text-center m-5">
+    <!-- for registered user -->
+    <?php if ($currentUserId && !empty($_SESSION['user']['username'])): ?>
+        Hello @<?php echo htmlspecialchars($_SESSION['user']['username']); ?>
+    <!-- for guest user -->
+    <?php else: ?>
+        Welcome! 
+    <?php endif; ?>
+</h1>
+
+<!--User Story number 1 -->
 
 <div class="row mx-auto" style="max-width:90%;">
         <!--when there are no posts secured in the database -->

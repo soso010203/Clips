@@ -4,95 +4,71 @@ require_once 'config/db.php';
 
 $userId = filter_input(INPUT_GET, 'user_id', FILTER_VALIDATE_INT);
 
-// User holen
+// User-Daten abrufen
 $userStmt = $pdo->prepare("SELECT username FROM accounts WHERE id = ?");
 $userStmt->execute([$userId]);
 $user = $userStmt->fetch();
-
 if (!$user) {
     die("User nicht gefunden.");
 }
+$username = $user['username'];
 
-// Posts holen
-$postsStmt = $pdo->prepare("
-    SELECT id, text, file_path, created_at
-    FROM posts
-    WHERE user_id = ?
-    ORDER BY created_at DESC
-");
+// Alle Posts dieses Users abrufen
+$postsStmt = $pdo->prepare("SELECT * FROM posts WHERE user_id = ? ORDER BY created_at DESC");
 $postsStmt->execute([$userId]);
 $posts = $postsStmt->fetchAll();
 ?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
 <meta charset="UTF-8">
-<title><?php echo htmlspecialchars($user['username']); ?> – Profil</title>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<title>@<?php echo htmlspecialchars($username); ?> - Profil</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-<link href="css/userprofile.css" rel="stylesheet">
+<link rel="stylesheet" href="userprofile.css">
 </head>
-
 <body>
-
 <?php include 'parts/navbar.php'; ?>
 
-<div class="container mt-5 userprofile-container">
+<div class="container userprofile-container mt-5">
 
-    <h1 class="userprofile-username">
-        @<?php echo htmlspecialchars($user['username']); ?>
-    </h1>
+    <!-- Username oben -->
+    <h2 class="userprofile-username text-center">@<?php echo htmlspecialchars($username); ?></h2>
+    <h5 class="userprofile-subtitle text-center mb-4">Posts from this user:</h5>
 
-    <h5 class="userprofile-subtitle mb-4">
-        Posts from this user
-    </h5>
+   <div class="row row-cols-1 row-cols-md-3 g-3">
+    <?php if (!empty($posts)): ?>
+        <?php foreach ($posts as $post): ?>
+            <div class="col">
+                <a href="post.php?id=<?php echo $post['id']; ?>" class="text-decoration-none">
+                    <div class="card h-100">
+                        <?php if (!empty($post['file_path'])): ?>
+                             <img src="<?php echo htmlspecialchars($post['file_path']); ?>" 
+     class="card-img-top" 
+     alt="Post"
+     style="height:200px; width:100%; object-fit:cover;">
 
-    <hr>
-
-    <?php if ($posts): ?>
-        <div class="row g-3">
-
-            <?php foreach ($posts as $post): ?>
-                <div class="col-12 col-sm-6 col-lg-4">
-
-                    <a href="post.php?id=<?php echo $post['id']; ?>"
-                       class="text-decoration-none text-dark">
-
-                        <div class="card userprofile-post-card h-100">
-
-                            <img src="<?php echo htmlspecialchars($post['file_path']); ?>"
-                                 class="card-img-top userprofile-post-image"
-                                 alt="Post image">
-
-                            <div class="card-body d-flex flex-column">
-                                <p class="card-text userprofile-post-text">
-                                    <?php
-                                    $text = htmlspecialchars($post['text']);
-                                    echo strlen($text) > 80
-                                        ? substr($text, 0, 80) . '...'
-                                        : $text;
-                                    ?>
-                                </p>
-
-                                <small class="userprofile-post-date mt-auto">
-                                    <?php echo date("d.m.Y", strtotime($post['created_at'])); ?>
-                                </small>
-                            </div>
-
+                        <?php endif; ?>
+                        <div class="card-body d-flex flex-column">
+                            <!-- Caption nur eine Zeile, inline CSS -->
+                            <p style="display:-webkit-box; -webkit-line-clamp:1; -webkit-box-orient:vertical; overflow:hidden; text-overflow:ellipsis;">
+                                <?php echo htmlspecialchars($post['text']); ?>
+                            </p>
+                            <small class="mt-auto text-muted">
+                                <?php echo date("d.m.Y H:i", strtotime($post['created_at'])); ?>
+                            </small>
                         </div>
-                    </a>
-                </div>
-            <?php endforeach; ?>
-
-        </div>
+                    </div>
+                </a>
+            </div>
+        <?php endforeach; ?>
     <?php else: ?>
         <div class="alert alert-warning text-center">
             Dieser User hat noch keine Posts.
         </div>
     <?php endif; ?>
-
 </div>
 
+</div>
 </body>
 </html>
