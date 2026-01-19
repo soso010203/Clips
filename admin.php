@@ -13,7 +13,12 @@ if (empty($_SESSION['user']['id']) || ($_SESSION['user']['role'] ?? '') !== 'adm
 if (empty($_SESSION['csrf_token'])) {
     $_SESSION['csrf_token'] = bin2hex(random_bytes(16));
 }
-require_once 'config/db.php';
+
+// DB Einstellungen
+$dbHost = 'localhost';
+$dbUser = 'root';
+$dbPass = 'root';
+$dbName = 'clips_accounts';
 $table  = 'accounts';
 
 $users = [];
@@ -58,8 +63,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['action']) && $_POST['
 // Benutzer laden (immer)
 if (!$error) {
     try {
-    
-        $stmt = $pdo->query("SELECT id, email, username, firstname, lastname, role FROM `{$table}` ORDER BY id DESC");
+        $stmt = $pdo->query("SELECT id, email, firstname, lastname, role, created_at FROM `{$table}` ORDER BY id DESC");
         $users = $stmt->fetchAll();
     } catch (PDOException $e) {
         $error = 'Datenbankfehler: ' . htmlspecialchars($e->getMessage());
@@ -80,19 +84,25 @@ $tab = isset($_GET['tab']) && $_GET['tab'] === 'posts' ? 'posts' : 'users';
 
 <?php include __DIR__ . '/parts/navbar.php'; ?> 
 
-<div class="container py-4">
+
+  <div class="container py-4">
     <h1 class="mb-4">Admin Panel</h1>
-    
+
     <nav class="mb-4">
-        <ul class="nav nav-tabs">
-            <li class="nav-item">
-              <a class="nav-link <?php echo $tab === 'users' ? 'active' : ''; ?>" href="admin.php?tab=users">User Management</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link <?php echo $tab === 'posts' ? 'active' : ''; ?>" href="admin.php?tab=posts">Post Management</a>
-            </li>
-        </ul>
+      <ul class="nav nav-tabs">
+        <li class="nav-item">
+          <a class="nav-link text-body-tertiary" href="userManagment.php">User Management</a>
+          
+        </li>
+        <li class="nav-item">
+          <a class="nav-link text-body-tertiary" href="#">Post Management</a>
+        </li>
+      </ul>
     </nav>
+  </div>
+<body>
+<div class="container py-4">
+    <h2>Benutzerverwaltung</h2>
 
     <?php
     // sichere Include‑Map (verhindert Pfadmanipulation)
@@ -102,13 +112,50 @@ $tab = isset($_GET['tab']) && $_GET['tab'] === 'posts' ? 'posts' : 'users';
     ];
 
     $includeFile = $includeMap[$tab] ?? $includeMap['users'];
-
-    if (file_exists($includeFile)) {
-        include $includeFile;
-    } else {
-        echo '<div class="alert alert-danger">Include-Datei nicht gefunden.</div>';
-    }
     ?>
+    <?php if (empty($users)): ?>
+        <div class="alert alert-info">Keine Benutzer gefunden.</div>
+    <?php else: ?>
+        <div class="table-responsive">
+            <table class="table table-striped table-hover align-middle">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>E‑Mail</th>
+                        <th>Vorname</th>
+                        <th>Nachname</th>
+                        <th>Rolle</th>
+                        <th>Erstellt</th>
+                        <th>Aktion</th>
+                    </tr>
+                </thead>
+                <tbody>
+                <?php foreach ($users as $u): ?>
+                    <tr>
+                        <td><?php echo htmlspecialchars($u['id']); ?></td>
+                        <td><?php echo htmlspecialchars($u['email']); ?></td>
+                        <td><?php echo htmlspecialchars($u['firstname']); ?></td>
+                        <td><?php echo htmlspecialchars($u['lastname']); ?></td>
+                        <td><?php echo htmlspecialchars($u['role']); ?></td>
+                        <td><?php echo htmlspecialchars($u['created_at']); ?></td>
+                        <td>
+                            <?php if ($u['id'] == ($_SESSION['user']['id'] ?? 0)): ?>
+                                <span class="text-muted">Eigenes Konto</span>
+                            <?php else: ?>
+                                <form method="post" style="display:inline" onsubmit="return confirm('Benutzer wirklich löschen?');">
+                                    <input type="hidden" name="action" value="delete">
+                                    <input type="hidden" name="delete_id" value="<?php echo htmlspecialchars($u['id']); ?>">
+                                    <input type="hidden" name="csrf_token" value="<?php echo htmlspecialchars($_SESSION['csrf_token']); ?>">
+                                    <button type="submit" class="btn btn-sm btn-danger">Löschen</button>
+                                </form>
+                            <?php endif; ?>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+    <?php endif; ?>
 
 </div>
 </html>

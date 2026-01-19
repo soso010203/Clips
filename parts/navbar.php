@@ -11,11 +11,7 @@ $isAdmin = $logged && (($_SESSION['user']['role'] ?? '') === 'admin');
 <!--Navigation-->
 <nav class="navbar navbar-expand">
   <div class="container-fluid">
-
-  <div class="d-flex align-items-left">
-    <img src="images/logo.png" alt="Avatar Logo" style="width:50px;" > 
-    <a class="navbar-brand ms-2" href="#">CLIPS </a>
-</div>    
+    <a class="navbar-brand" href="#">CLIPS</a>
 
       <div class="navbar-nav ">
         <a class="nav-link" aria-current="page" href="index.php">home</a>
