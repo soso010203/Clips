@@ -1,3 +1,5 @@
+<!-- User Story number 3 -->
+ 
 <?php
 
 $userId = filter_input(INPUT_GET, 'user_id', FILTER_VALIDATE_INT);

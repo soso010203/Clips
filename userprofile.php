@@ -2,23 +2,7 @@
 session_start();
 require_once 'config/db.php';
 
-require 'actions/userprofileAction.php';
-
-$userId = filter_input(INPUT_GET, 'user_id', FILTER_VALIDATE_INT);
-
-// User-Daten abrufen
-$userStmt = $pdo->prepare("SELECT username FROM accounts WHERE id = ?");
-$userStmt->execute([$userId]);
-$user = $userStmt->fetch();
-if (!$user) {
-    die("User nicht gefunden.");
-}
-$username = $user['username'];
-
-// Alle Posts dieses Users abrufen
-$postsStmt = $pdo->prepare("SELECT * FROM posts WHERE user_id = ? ORDER BY created_at DESC");
-$postsStmt->execute([$userId]);
-$posts = $postsStmt->fetchAll();
+require 'actions/userprofileAction.php'; //loads all the posts and username of the profile you click on
 ?>
 
 <!DOCTYPE html>
@@ -32,6 +16,8 @@ $posts = $postsStmt->fetchAll();
 <body>
 <?php include 'parts/navbar.php'; ?>
 
+<!-- User Story number 3 -->
+ 
 <div class="container userprofile-container mt-5">
 
     <!-- Username oben -->
