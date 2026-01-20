@@ -1,3 +1,5 @@
+<!--User Story number 2 and 9-->
+
 <?php
 session_start();
 require_once 'config/db.php';

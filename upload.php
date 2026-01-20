@@ -1,3 +1,4 @@
+<!-- User Story number 8 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,7 +13,6 @@
 
 <?php include 'parts/navbar.php';?>
 
-<!-- User Story number 8 -->
  
 <div class="upload-div">
     <h1>Create Your Post</h1>

@@ -1,3 +1,5 @@
+<!-- User Story number 7 -->
+
 <?php
 
 session_start();

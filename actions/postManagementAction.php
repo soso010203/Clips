@@ -30,9 +30,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delet
 
     if (!hash_equals($_SESSION['csrf_token'], $token)) {
         $messages[] = ['type' => 'danger', 'text' => 'Ungültiger Request (CSRF).'];
+
     } elseif ($id <= 0) {
         $messages[] = ['type' => 'danger', 'text' => 'Ungültige Post‑ID.'];
     } else {
+
+        
         try {
             // save  file_path 
             $stmt = $pdo->prepare("SELECT file_path FROM `{$postsTable}` WHERE id = :id");

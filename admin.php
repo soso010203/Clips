@@ -62,6 +62,4 @@ $tab = isset($_GET['tab']) && $_GET['tab'] === 'posts' ? 'posts' : 'users';
     ?>
 
 </div>
-
-<?php include 'parts/footer.php'; ?>
 </html>

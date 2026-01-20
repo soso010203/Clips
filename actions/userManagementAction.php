@@ -19,6 +19,8 @@ $table  = 'accounts';
 $users = [];
 $error = null;
 $messages = [];
+
+
 try {
     $pdo = new PDO("mysql:host={$dbHost};dbname={$dbName};charset=utf8mb4", $dbUser, $dbPass, [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
@@ -35,6 +37,7 @@ if (!$error) {
         // username mit abfragen
         $stmt = $pdo->query("SELECT id, email, username, firstname, lastname, role, created_at FROM `{$table}` ORDER BY id DESC");
         $users = $stmt->fetchAll();
+
     } catch (PDOException $e) {
         $error = 'Datenbankfehler: ' . htmlspecialchars($e->getMessage());
     }
@@ -46,6 +49,7 @@ if (!$error) {
 // delete user
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete') {
+    
     $deleteId = intval($_POST['delete_id'] ?? 0);
     $token = $_POST['csrf_token'] ?? '';
 
