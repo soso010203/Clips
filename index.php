@@ -13,10 +13,10 @@ require 'actions/indexAction.php';
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"> <!--Bootstrap link-->
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="/clips/stylesheet.css">
     <title>Homepage</title>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
 
 
 <?php include 'parts/navbar.php'; ?> 
@@ -35,7 +35,7 @@ require 'actions/indexAction.php';
 
 <!--User Story number 1 -->
 
-<div class="row mx-auto" style="max-width:90%;">
+<div class="flex-grow-1 row mx-auto" style="max-width:90%;">
         <!--when there are no posts secured in the database -->
         <?php if (count($posts) === 0): ?>
             <p class="text-center">There are no posts available.</p>

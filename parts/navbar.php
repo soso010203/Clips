@@ -8,13 +8,14 @@ $logged = !empty($_SESSION['user']['id']);
 $displayName = $logged ? htmlspecialchars($_SESSION['user']['firstname'] ?? $_SESSION['user']['email'] ?? 'Profil') : '';
 $isAdmin = $logged && (($_SESSION['user']['role'] ?? '') === 'admin');
 ?>
+
 <!--Navigation-->
 <nav class="navbar navbar-expand">
   <div class="container-fluid">
 
   <div class="d-flex align-items-left">
-    <img src="images/logo.png" alt="Avatar Logo" style="width:50px;" > 
-    <a class="navbar-brand ms-2" href="#">CLIPS </a>
+    <img src="images/logo.png" alt="Avatar Logo" style="width:50px;" >
+    <a class="navbar-brand ms-2 d-none d-sm-inline" href="#">CLIPS</a>
 </div>    
 
       <div class="navbar-nav ">

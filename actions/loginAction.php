@@ -1,12 +1,7 @@
 <?php
 session_start();
 
-// DB Einstellungen
-$dbHost = 'localhost';
-$dbUser = 'user';
-$dbPass = 'jngwZ6tsl3toM_cb';
-$dbName = 'clips_accounts';
-$table  = 'accounts';
+include __DIR__ . '/../config/db.php';
 
 $_SESSION['messages'] = []; // init
 
