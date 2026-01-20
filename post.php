@@ -55,6 +55,8 @@ require 'actions/postAction.php'; // loads the post, username + userid + owner
         <p class="post-text"><?php echo nl2br(htmlspecialchars($post['text'])); ?></p>
     </div>
 
+<!-- User Story number 9 -->
+ 
     <?php if ($isOwner): ?>
     <div class="mt-2 d-flex gap-2">
         <a href="changepost.php?id=<?php echo $post['id']; ?>" class="btn btn-primary">

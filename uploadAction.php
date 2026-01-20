@@ -1,3 +1,5 @@
+<!-- User Story number 8 -->
+ 
  <?php
 
 session_start();
@@ -11,7 +13,7 @@ $success = "";
 
 $user_id = $_SESSION['user']['id'];
 
-$allowedExtensions = ["jpg", "jpeg", "png", "pdf", "txt", "mp4", "mov"]; 
+$allowedExtensions = ["jpg", "jpeg", "png"]; 
 
 
 
@@ -37,7 +39,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST")
         //checks if the file extension is not listed in the allowed extension list
         if (!in_array($fileExtension, $allowedExtensions)) 
             {
-                $errors[] = "Invalid file format. Allowed are: jpg, jpeg, png, pdf, txt, mp4, mov";
+                $errors[] = "Invalid file format. Allowed are: jpg, jpeg, png";
             } 
         //if the file extension is allowed, the file is saved in the right folder
         else 
