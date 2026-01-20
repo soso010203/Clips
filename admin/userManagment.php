@@ -13,7 +13,7 @@ include __DIR__ . '/../actions/userManagementAction.php';
         <div class="alert alert-danger"><?php echo $error; ?></div>
     <?php endif; ?>
 
-
+<!-- User Story number 10-->
     <?php foreach ($messages as $m): ?>
         <div class="alert alert-<?php echo htmlspecialchars($m['type']); ?>"><?php echo htmlspecialchars($m['text']); ?></div>
     <?php endforeach; ?>
@@ -45,6 +45,7 @@ include __DIR__ . '/../actions/userManagementAction.php';
                         <td><?php echo htmlspecialchars($u['lastname']); ?></td>
                         <td><?php echo htmlspecialchars($u['role']); ?></td>
                         
+                        <!-- User Story number 11-->
                         <!-- delete other accounts -->
                         <td>
                             <?php if ($u['id'] == ($_SESSION['user']['id'] ?? 0)): ?>

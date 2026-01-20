@@ -1,4 +1,4 @@
-<!-- User Story number 11 and 12 -->
+<!-- User Story number 12 and 13 -->
 
 <?php
 if(!isset($_SESSION)){
@@ -65,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delet
     }
 }
 
-//User Story Number 11
+//User Story Number 12
 // shows all posts
 try {
     $stmt = $pdo->query("

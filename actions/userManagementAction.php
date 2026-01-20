@@ -1,4 +1,4 @@
-<!-- User Story number 13 and 14 -->
+<!-- User Story number 10 and 11 -->
 
 <?php 
 
@@ -30,7 +30,7 @@ try {
     $error = 'Datenbankfehler: ' . htmlspecialchars($e->getMessage());
 }
 
-//User Story Number 13
+//User Story Number 10
 // see all users
 if (!$error) {
     try {
@@ -45,9 +45,8 @@ if (!$error) {
 
 
 
-//User Story Number 14
+//User Story Number 11
 // delete user
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete') {
     
     $deleteId = intval($_POST['delete_id'] ?? 0);
@@ -78,8 +77,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delet
             $messages[] = ['type' => 'danger', 'text' => 'Fehler beim Löschen: ' . htmlspecialchars($e->getMessage())];
         }
     }
-
-
     
 }
 
