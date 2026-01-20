@@ -60,8 +60,8 @@ require 'actions/postAction.php'; // loads the post, username + userid + owner
 <!-- User Story number 9 -->
  
     <?php if ($isOwner): ?>
-    <div class="mt-2 d-flex gap-2">
-        <a href="changepost.php?id=<?php echo $post['id']; ?>" class="btn btn-primary">
+    <div class="mt-2 d-flex gap-2 mb-5">
+        <a href="changepost.php?id=<?php echo $post['id']; ?>" class="btn btn-primary ">
             Edit your post
         </a>
 

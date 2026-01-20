@@ -52,7 +52,7 @@ require 'actions/changepostAction.php';
             <input type="file" name="file" class="form-control" accept=".jpg,.jpeg,.png">
         </div>
 
-        <button type="submit" class="btn btn-primary">Update your post!</button>
+        <button type="submit" class="btn btn-primary mb-5">Update your post!</button>
     </form>
 </div>
 

@@ -25,7 +25,7 @@ unset($_SESSION['messages'], $_SESSION['email']);
 <header>
 <?php include 'parts/navbar.php';?>
 </header>
-
+<!--User Story number 6 -->
 <body>
 <div class="container py-4" style="max-width:600px;">
     <h2 class="mb-3">Bitte einloggen</h2>

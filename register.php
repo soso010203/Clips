@@ -1,4 +1,4 @@
-<!--User Story number 51 -->
+<!--User Story number 5-->
 
 
 <?php
@@ -29,7 +29,7 @@ unset($_SESSION['messages'], $_SESSION['firstname'], $_SESSION['lastname'], $_SE
 <header>
 <?php include 'parts/navbar.php';?> 
 </header>
-
+<!--User Story number 5 -->
 <body>
 <div class="container py-4" style="max-width:600px;">
     <h2 class="mb-3">Registrieren</h2>
