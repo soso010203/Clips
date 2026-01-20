@@ -1,5 +1,8 @@
+<!--User Story number 6 -->
+
+
 <?php
-//User Story Number 6
+
 session_start();
 
 // Flash‑Messages und letztes Feld aus der Session sicher auslesen

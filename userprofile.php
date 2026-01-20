@@ -20,15 +20,9 @@ require 'actions/userprofileAction.php'; //loads all the posts and username of t
  
 <div class="container mt-5">
 
-<<<<<<< Updated upstream
     <!-- Username above -->
     <h2 class="userprofile-username text-center">@<?php echo htmlspecialchars($username); ?></h2>
     <h5 class="userprofile-subtitle text-center mb-4">Posts from this user:</h5>
-=======
-    <!-- Username oben -->
-    <h2 class="text-center">@<?php echo htmlspecialchars($username); ?></h2>
-    <h5 class="text-center mb-4">Posts from this user:</h5>
->>>>>>> Stashed changes
 
    <div class="row row-cols-1 row-cols-md-3 g-3">
     <?php if (!empty($posts)): ?>

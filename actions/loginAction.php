@@ -2,7 +2,6 @@
 
 
 <?php
-// User Story number 6
 
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -66,7 +65,7 @@ try {
     $stmt = $pdo->prepare("SELECT id, email, username, password, firstname, lastname, role, created_at FROM `{$table}` WHERE email = :email LIMIT 1");
     $stmt->execute(['email' => $email]);
     $user = $stmt->fetch();
-    
+
 } catch (PDOException $e) {
     // show real error for local debugging
     $_SESSION['messages'][] = ['type' => 'danger', 'text' => 'Fehler beim Zugriff auf die Benutzerdaten: ' . $e->getMessage()];

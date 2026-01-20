@@ -1,3 +1,5 @@
+<!-- User Story number 11,12,13,14-->
+
 <?php
 if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
@@ -45,8 +47,8 @@ $tab = isset($_GET['tab']) && $_GET['tab'] === 'posts' ? 'posts' : 'users';
 
     // Include‑Map for tabs
     $includeMap = [
-        'users' => __DIR__ . '/admin/userManagment.php',
-        'posts' => __DIR__ . '/admin/postManagement.php'
+        'users' => __DIR__ . '/admin/userManagment.php',//user story 13 and 14 
+        'posts' => __DIR__ . '/admin/postManagement.php'//user stroy 11 and 12
     ];
 
     //action variable to include correct file
