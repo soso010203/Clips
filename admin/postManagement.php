@@ -1,4 +1,4 @@
-<!-- User Story number 13 and 14-->
+<!-- User Story number 12 and 13-->
 
 <?php
 include_once __DIR__ . '/../actions/postManagementAction.php';
@@ -17,6 +17,7 @@ include_once __DIR__ . '/../actions/postManagementAction.php';
         <div class="alert alert-info">Keine Posts gefunden.</div>
     <?php else: ?>
 
+<!-- User Story number 12 -->
         <div class="table-responsive">
             <table class="table table-striped table-hover align-middle">
                 <thead>
@@ -46,6 +47,7 @@ include_once __DIR__ . '/../actions/postManagementAction.php';
 
                         <td><?php echo htmlspecialchars($p['created_at']); ?></td>
                         
+                        <!-- User Story number 13 -->
                         <td>
                             <form method="post" onsubmit="return confirm('Post wirklich löschen?');" style="display:inline">
                                 <input type="hidden" name="action" value="delete_post">

@@ -19,7 +19,7 @@ $usersTable = 'accounts';
 
 $messages = [];
 
-//User Story Number 12
+//User Story Number 13
 
 // delete post
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delete_post') 
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delet
 // shows all posts
 try {
     $stmt = $pdo->query("
-        SELECT p.id, p.user_id, p.file_path, p.created_at, a.username
+        SELECT p.id, p8.user_id, p.file_path, p.created_at, a.username
         FROM `{$postsTable}` p
         LEFT JOIN `{$usersTable}` a ON p.user_id = a.id
         ORDER BY p.created_at DESC
