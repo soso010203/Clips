@@ -2,7 +2,7 @@
 
 session_start();
 
-require_once 'config/db.php'; // allows to connect to the database
+require_once  'config/db.php';
 
 $caption = ""; // variable caption (= name in the form)
 $fileInput = ""; // variable fileInput

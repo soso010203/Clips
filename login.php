@@ -1,9 +1,12 @@
 <?php
+//User Story Number 6
 session_start();
 
-// Flash-Messages und letztes Email-Feld holen
+// Flash‑Messages und letztes Feld aus der Session sicher auslesen
 $messages = $_SESSION['messages'] ?? [];
-$email = $_SESSION['email'] ?? '';
+$email    = $_SESSION['email'] ?? '';
+
+// Session‑Meldungen nach dem Auslesen entfernen
 unset($_SESSION['messages'], $_SESSION['email']);
 ?>
 <!DOCTYPE html>
@@ -12,6 +15,7 @@ unset($_SESSION['messages'], $_SESSION['email']);
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/clips/stylesheet.css">
     <title>Login</title>
 </head>
 

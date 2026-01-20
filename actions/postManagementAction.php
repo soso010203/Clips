@@ -1,3 +1,4 @@
+<!-- User Story number 11 and 12 -->
 
 <?php
 if(!isset($_SESSION)){

@@ -1,10 +1,10 @@
 <?php
 session_start();
 
-// Session leeren
+// free session variables
 $_SESSION = [];
 
-// Session-Cookie löschen
+// delete session-cookie 
 if (ini_get('session.use_cookies')) {
     $params = session_get_cookie_params();
     setcookie(session_name(), '', time() - 42000,
@@ -13,10 +13,10 @@ if (ini_get('session.use_cookies')) {
     );
 }
 
-// Session zerstören
+// destroy session
 session_destroy();
 
-// Neue Session für kurze Flash‑Nachricht anlegen und weiterleiten
+// new session to store logout message
 session_start();
 $_SESSION['messages'][] = ['type' => 'success', 'text' => 'Erfolgreich ausgeloggt.'];
 

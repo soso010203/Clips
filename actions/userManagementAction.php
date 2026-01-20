@@ -1,3 +1,5 @@
+<!-- User Story number 13 and 14 -->
+
 <?php 
 
 if(!isset($_SESSION)){
@@ -25,6 +27,20 @@ try {
 } catch (PDOException $e) {
     $error = 'Datenbankfehler: ' . htmlspecialchars($e->getMessage());
 }
+
+//User Story Number 13
+// see all users
+if (!$error) {
+    try {
+        // username mit abfragen
+        $stmt = $pdo->query("SELECT id, email, username, firstname, lastname, role, created_at FROM `{$table}` ORDER BY id DESC");
+        $users = $stmt->fetchAll();
+    } catch (PDOException $e) {
+        $error = 'Datenbankfehler: ' . htmlspecialchars($e->getMessage());
+    }
+}
+
+
 
 //User Story Number 14
 // delete user
@@ -58,17 +74,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && ($_POST['action'] ?? '') === 'delet
             $messages[] = ['type' => 'danger', 'text' => 'Fehler beim Löschen: ' . htmlspecialchars($e->getMessage())];
         }
     }
-}
-//User Story Number 13
-// see all users
-if (!$error) {
-    try {
-        // username mit abfragen
-        $stmt = $pdo->query("SELECT id, email, username, firstname, lastname, role, created_at FROM `{$table}` ORDER BY id DESC");
-        $users = $stmt->fetchAll();
-    } catch (PDOException $e) {
-        $error = 'Datenbankfehler: ' . htmlspecialchars($e->getMessage());
-    }
+
+
+    
 }
 
 ?> 

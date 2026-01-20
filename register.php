@@ -1,20 +1,27 @@
 <?php
+
+//User Story Number 5
+
 session_start();
 
-// Flash-Messages und vorherige Formularwerte aus der Session
+//flash messages 
 $messages  = $_SESSION['messages'] ?? [];
 $firstname = $_SESSION['firstname'] ?? '';
 $lastname  = $_SESSION['lastname'] ?? '';
 $email     = $_SESSION['email'] ?? '';
 $username  = $_SESSION['username'] ?? '';
 unset($_SESSION['messages'], $_SESSION['firstname'], $_SESSION['lastname'], $_SESSION['email'], $_SESSION['username']);
+
 ?>
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/clips/stylesheet.css">
+
     <title>Registrieren</title>
 </head>
 
@@ -33,7 +40,7 @@ unset($_SESSION['messages'], $_SESSION['firstname'], $_SESSION['lastname'], $_SE
     <form method="post" action="actions/registerAction.php" class="m-3">
         <div class="input-group mb-3">
             <span class="input-group-text">Username</span>
-            <input name="username" type="text" class="form-control" placeholder="madmax_12" aria-label="username" value="<?php echo htmlspecialchars($username); ?>" required>
+            <input name="username" type="text" class="form-control" placeholder="user_03" aria-label="username" value="<?php echo htmlspecialchars($username); ?>" required>
         </div>
 
         <div class="input-group mb-3">

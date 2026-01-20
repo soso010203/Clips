@@ -3,7 +3,7 @@ if (session_status() !== PHP_SESSION_ACTIVE) {
     session_start();
 }
 
-// Einfache Prüfung: Session['user']['id'] muss gesetzt sein
+// checks if Session['user']['id'] is set and not empty
 $logged = !empty($_SESSION['user']['id']);
 $displayName = $logged ? htmlspecialchars($_SESSION['user']['firstname'] ?? $_SESSION['user']['email'] ?? 'Profil') : '';
 $isAdmin = $logged && (($_SESSION['user']['role'] ?? '') === 'admin');
